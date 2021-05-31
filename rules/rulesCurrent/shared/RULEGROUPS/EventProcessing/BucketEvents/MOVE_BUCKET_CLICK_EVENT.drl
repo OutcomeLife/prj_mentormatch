@@ -36,7 +36,7 @@ rule "MOVE_BUCKET_CLICK_EVENT"
         beUtils : BaseEntityUtils( )
 
     then
-		System.out.println(ruleDetails+" "+drools.getRule().getName()+" Processing: " + $message );
+		System.out.println(ruleDetails+" "+drools.getRule().getName()+" Processing:: " + $message );
 
 		String code = $message.getData().getCode();
 		String workflowSignalCode = null;
