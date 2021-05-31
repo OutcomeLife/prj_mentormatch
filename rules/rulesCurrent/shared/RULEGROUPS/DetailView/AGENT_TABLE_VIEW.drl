@@ -24,6 +24,6 @@ rule "AGENT_TABLE_VIEW"
 
 		System.out.println(drools.getRule().getName() + " - Rule fired");
 		
-			TableUtils.searchTable(beUtils,"SBE_AGENTS", true, "PRI_CODE", targetCode);
+			TableUtils.searchTable(beUtils,"SBE_AGENTS", true);
 		retract( $message);
 	end
