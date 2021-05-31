@@ -24,15 +24,6 @@ rule "AGENT_TABLE_VIEW"
 
 		System.out.println(drools.getRule().getName() + " - Rule fired");
 		
-		String targetCode = $message.getData().getTargetCode();
-		System.out.println("TARGET code ::  " + targetCode);
-	
-		if(targetCode != null){
 			TableUtils.searchTable(beUtils,"SBE_AGENTS", true, "PRI_CODE", targetCode);
-		}
-		else
-		{
-			System.out.println(drools.getRule().getName() + " targetCode is null");
-		}
 		retract( $message);
 	end
