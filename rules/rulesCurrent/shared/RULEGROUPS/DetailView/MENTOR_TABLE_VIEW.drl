@@ -24,6 +24,6 @@ rule "MENTOR_TABLE_VIEW"
 
 		System.out.println(drools.getRule().getName() + " - Rule fired");
 		
-			TableUtils.searchTable(beUtils,"SBE_MENTORS", true, "PRI_CODE", targetCode);
+			TableUtils.searchTable(beUtils,"SBE_MENTORS", true);
 		retract( $message);
 	end
