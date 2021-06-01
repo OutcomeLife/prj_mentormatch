@@ -159,7 +159,7 @@ rule "IS_QA_MENTEE"
 			templateData.put("pw", password);
 			templateData.put("url", url);
 
-			// List<String> bccList = Arrays.asList("rahul@gada.io", "cyrus.shrestha@outcomelife.com.au", "tarjnee.gandhi@outcomelife.com.au");
+			/* List<String> bccList = Arrays.asList("rahul@gada.io", "cyrus.shrestha@outcomelife.com.au", "tarjnee.gandhi@outcomelife.com.au");*/
 			List<String> bccList = Arrays.asList("mentormatch@gada.io");
 
 			/* if (!GennySettings.projectUrl.contains("dev")) { */
