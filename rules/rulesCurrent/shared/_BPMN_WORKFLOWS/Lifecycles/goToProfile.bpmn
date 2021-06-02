@@ -72,7 +72,7 @@
   <bpmn2:signal id="Signal_1" name="START_POST_CREATION"/>
   <bpmn2:signal id="Signal_2" name="START_MENTOR_AGREE"/>
   <bpmn2:signal id="Signal_3" name="GO_TO_PROFILE"/>
-  <bpmn2:process id="mentorAgree" drools:version="1" drools:packageName="defaultPackage" drools:adHoc="false" name="Default Process" isExecutable="true">
+  <bpmn2:process id="goToProfile" drools:version="1" drools:packageName="defaultPackage" drools:adHoc="false" name="Default Process" isExecutable="true">
     <bpmn2:extensionElements>
       <drools:import name="life.genny.models.GennyToken"/>
       <drools:import name="life.genny.utils.SessionFacts"/>
@@ -323,7 +323,7 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
     <bpmn2:sequenceFlow id="SequenceFlow_7" drools:priority="1" sourceRef="SubProcess_2" targetRef="EndEvent_2"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="Default Process Diagram">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="mentorAgree">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="goToProfile">
       <bpmndi:BPMNShape id="BPMNShape_SubProcess_2" bpmnElement="SubProcess_2" isExpanded="true">
         <dc:Bounds height="264.0" width="1351.0" x="180.0" y="166.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_1">
