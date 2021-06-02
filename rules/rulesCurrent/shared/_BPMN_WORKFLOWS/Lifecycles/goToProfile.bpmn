@@ -222,10 +222,10 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
         <bpmn2:script>System.out.println(&quot;%%%%%%%%%%%%%%%%%%% END GO TO PROFILE WORKFLOW %%%%%%%%%%%%%%%%%%%&quot;);</bpmn2:script>
       </bpmn2:scriptTask>
       <bpmn2:sequenceFlow id="SequenceFlow_18" drools:priority="1" sourceRef="ScriptTask_7" targetRef="EndEvent_6"/>
-      <bpmn2:task id="Task_2" drools:taskName="AskQuestionTask" drools:displayName="Ask Question Task" drools:icon="icons/icon-info.gif" name="QUE_MENTEE_GRP">
+      <bpmn2:task id="Task_2" drools:taskName="AskQuestionTask" drools:displayName="Ask Question Task" drools:icon="icons/icon-info.gif" name="QUE_MENTEE_PROFILE_GRP">
         <bpmn2:extensionElements>
           <drools:metaData name="elementname">
-            <drools:metaValue><![CDATA[QUE_MENTEE_GRP]]></drools:metaValue>
+            <drools:metaValue><![CDATA[QUE_MENTEE_PROFILE_GRP]]></drools:metaValue>
           </drools:metaData>
           <drools:onEntry-script scriptFormat="http://www.java.com/java">
             <drools:script>System.out.println(&quot;###### Inside The ASK QUESTION TASK :: QUE_MENTEE_GRP QUESTION&quot;);</drools:script>
@@ -273,7 +273,7 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
         <bpmn2:dataInputAssociation id="_DataInputAssociation_3">
           <bpmn2:targetRef>DataInput_14</bpmn2:targetRef>
           <bpmn2:assignment id="Assignment_3">
-            <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_7">QUE_MENTEE_GRP</bpmn2:from>
+            <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_7">QUE_MENTEE_PROFILE_GRP</bpmn2:from>
             <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_5">DataInput_14</bpmn2:to>
           </bpmn2:assignment>
         </bpmn2:dataInputAssociation>
@@ -369,7 +369,7 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
       <bpmndi:BPMNShape id="BPMNShape_Task_2" bpmnElement="Task_2" isExpanded="true">
         <dc:Bounds height="50.0" width="110.0" x="750.0" y="274.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_8">
-          <dc:Bounds height="11.0" width="87.0" x="761.0" y="293.0"/>
+          <dc:Bounds height="22.0" width="102.0" x="754.0" y="288.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="SequenceFlow_8" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_SubProcess_2">

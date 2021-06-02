@@ -61,6 +61,7 @@ rule "GENERATE_DISPLAY_CODES"
 		displayCodes.put("ACT_PRI_PRIMARY_AVAILABILITY", "PROCESS");
 
 		/* DASHBOARD */
+		displayCodes.put("QUE_MENTEE_PROFILE_GRP", "DASHBOARD");
 		displayCodes.put("QUE_MENTEE_TRAINING_MODULE_ONE_GRP", "DASHBOARD");
 		displayCodes.put("QUE_DASHBOARD_VIEW", "DASHBOARD");
 		displayCodes.put("QUE_MENTEE_GRP", "DASHBOARD");
