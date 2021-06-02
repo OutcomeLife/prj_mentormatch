@@ -48,7 +48,7 @@ rule "GENERATE_DISPLAY_CODES"
 		displayCodes.put("QUE_QA_ADMIN_MENU", "FORM:DETAIL");
 		displayCodes.put("QUE_FINISH_MENTEE", "FORM:DETAIL");
 		displayCodes.put("ACT_MENTOR_AGREE_TO_MENTOR", "FORM:DETAIL");
-		displayCodes.put("QUE_AVATAR_PROFILE_GRP", "FORM:DETAIL");
+		displayCodes.put("ACT_GO_TO_PROFILE", "FORM:DETAIL");
 
 		/* PROCESS */
 		displayCodes.put("QUE_TAB_BUCKET_VIEW", "PROCESS");
