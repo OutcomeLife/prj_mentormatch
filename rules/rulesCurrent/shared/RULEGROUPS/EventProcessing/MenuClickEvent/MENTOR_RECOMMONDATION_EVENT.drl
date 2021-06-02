@@ -35,7 +35,7 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 		System.out.println(ruleDetails+" "+drools.getRule().getName()+" Processing:: " + $message );
 		
 		/* String targetCode = $message.getData().getTargetCode(); */
-		String targetCode = "PER_64E94003-CBA9-4AAA-AC1E-B0C2A26CF949"
+		String targetCode = "PER_64E94003-CBA9-4AAA-AC1E-B0C2A26CF949";
 		System.out.println("targetCode = " + targetCode);
 		BaseEntity user = beUtils.getBaseEntityByCode(targetCode);
 	/* ================== BASIC AF MATCHING ALGORITHM ================== */
