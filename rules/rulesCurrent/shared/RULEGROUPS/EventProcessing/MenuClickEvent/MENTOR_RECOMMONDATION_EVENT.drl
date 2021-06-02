@@ -60,11 +60,11 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 	/*	String assocOtherIndustry = user.getValue(otherIndustry, null); */
 		
 		/* Get all the all the matching Mentors */
-	    SearchEntity mentorMatch = new SearchEntity("SBE_MENTOR_RECOMMENDATIONS_BASIC", "Matching Mentor")
+	    SearchEntity matchedMentorBe = new SearchEntity("SBE_MENTOR_RECOMMENDATIONS_BASIC", "Matching Mentor")
 	            .addFilter("PRI_IS_MENTOR", true)
 				.addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, "PER_%")
-				.addFilter("PRI_ETH_BACK", SearchEntity.StringFilter.LIKE, assocMentorEth)
-				.addFilter("PRI_AREA_EXPERTISE", SearchEntity.StringFilter.LIKE, assocMentorExp)
+				/*.addFilter("PRI_ETH_BACK", SearchEntity.StringFilter.LIKE, assocMentorEth)*/
+				/*.addFilter("PRI_AREA_EXPERTISE", SearchEntity.StringFilter.LIKE, assocMentorExp)*/
 
 				/* Table Columns */
 				.addColumn("PRI_IMAGE_URL", "Image")
@@ -77,10 +77,14 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 
 	            .setPageStart(0).setPageSize(1000);
 
-	    mentorMatch.setRealm(serviceToken.getRealm());
+	    matchedMentorBe.setRealm(serviceToken.getRealm());
 		
-		List<BaseEntity> matchedMentor = beUtils.getBaseEntitys(mentorMatch);
+		List<BaseEntity> matchedMentor = beUtils.getBaseEntitys(matchedMentorBe);
 		
 		System.out.println("List of matched Mentor: = " +matchedMentor);
+		
+		insert(matchedMentorBe);
+		VertxUtils.putObject(serviceToken.getRealm(), "", matchedMentorBe.getCode(), matchedMentorBe, serviceToken.getToken());
+		
 		retract( $message);
 	end
