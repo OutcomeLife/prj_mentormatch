@@ -11,7 +11,7 @@ import life.genny.utils.VertxUtils;
 
 
 rule "AGENT_TABLE_VIEW"
-    ruleflow-group 'DetailView'
+    ruleflow-group 'EventProcessing'
 		salience 2
     no-loop
     when
