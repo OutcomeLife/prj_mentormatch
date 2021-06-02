@@ -47,8 +47,6 @@ rule "SBE_MENTORS"
             .addColumn("PRI_ADDRESS_FULL", "Address")
 
 			/* Filterable Columns */
-			.addFilterableColumn("PRI_NAME", "Title")
-			.addFilterableColumn("PRI_STATUS", "Status")
 			
 			/* Row Actions */
 
