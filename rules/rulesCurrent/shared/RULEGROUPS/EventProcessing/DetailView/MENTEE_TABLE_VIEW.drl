@@ -10,12 +10,12 @@ import life.genny.qwanda.message.QCmdMessage;
 import life.genny.utils.VertxUtils;
 
 
-rule "AGENT_TABLE_VIEW"
-    ruleflow-group 'DetailView'
+rule "MENTEE_TABLE_VIEW"
+    ruleflow-group 'EventProcessing'
 		salience 2
     no-loop
     when
-		$message : QEventMessage(data.code matches "SCH_ACT_PRI_EVENT_QUE_TREE_ITEM_AGENTS")
+		$message : QEventMessage(data.code matches "SCH_ACT_PRI_EVENT_QUE_TREE_ITEM_MENTEES")
 		userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken (code == "PER_SERVICE" )
  		ruleDetails : RuleDetails()
@@ -24,6 +24,6 @@ rule "AGENT_TABLE_VIEW"
 
 		System.out.println(drools.getRule().getName() + " - Rule fired");
 		
-			TableUtils.searchTable(beUtils,"SBE_AGENTS", true);
+			TableUtils.searchTable(beUtils,"SBE_MENTEES", true);
 		retract( $message);
 	end
