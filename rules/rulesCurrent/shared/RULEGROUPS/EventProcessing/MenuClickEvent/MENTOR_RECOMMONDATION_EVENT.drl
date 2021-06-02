@@ -79,12 +79,14 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 
 	    matchedMentorBe.setRealm(serviceToken.getRealm());
 		
-		List<BaseEntity> matchedMentor = beUtils.getBaseEntitys(matchedMentorBe);
+		List<BaseEntity> matchedMentorLst = beUtils.getBaseEntitys(matchedMentorBe);
 		
-		System.out.println("List of matched Mentor: = " +matchedMentor);
+		System.out.println("List of matched Mentor: = " +matchedMentorLst);
 		
-		insert(matchedMentorBe);
-		VertxUtils.putObject(serviceToken.getRealm(), "", matchedMentorBe.getCode(), matchedMentorBe, serviceToken.getToken());
+		QDataBaseEntityMessage machedMentorMsg = new QDataBaseEntityMessage(matchedMentorLst);
+			machedMentorMsg.setToken(userToken.getToken());
+			machedMentorMsg.setReplace(true);
+			VertxUtils.writeMsg("webcmds", JsonUtils.toJson(machedMentorMsg));
 		
 		retract( $message);
 	end
