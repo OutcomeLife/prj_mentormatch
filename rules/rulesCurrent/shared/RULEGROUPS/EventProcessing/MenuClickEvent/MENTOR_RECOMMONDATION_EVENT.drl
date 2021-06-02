@@ -25,7 +25,7 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 		salience 2
     no-loop
     when
-		$message : QEventMessage((data.code matches "ACT_PRI_EVENT_SELECT_MENTOR_1"))
+		$message : QEventMessage((data.code matches "ACT_PRI_EVENT_SELECT_MENTOR"))
 		userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken (code == "PER_SERVICE" )
 		ruleDetails : RuleDetails()
@@ -33,7 +33,10 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 
     then
 		System.out.println(ruleDetails+" "+drools.getRule().getName()+" Processing:: " + $message );
-
+		
+		String targetCode = $message.getData().getTargetCode();
+		System.out.println("targetCode = " + targetCode);
+		BaseEntity user = beUtils.getBaseEntityByCode(targetCode);
 	/* ================== BASIC AF MATCHING ALGORITHM ================== */
 
 		/* Recommendation Algorithm Rules
@@ -46,5 +49,37 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 		String topIndustry = "PRI_INDUSTRY_TO_BE_MENTORED";
 		String otherIndustry = "PRI_INTERESTED_INDUSTRIES";
 		
+		/* Gather Matching Info */
+		/* String assocMentorLoc = user.getValue(mentorLoc, null); */
+		/* String assocMentorGen = user.getValue(mentorGen, null); */
+		/* String assocMentorAge = user.getValue(mentorAge, null); */
+		String assocMentorExp = user.getValue(mentorExp, null);
+		String assocMentorEth = user.getValue(mentorEth, null);
+		/* String assocTopIndustry = user.getValue(topIndustry, null); */
+	/*	String assocOtherIndustry = user.getValue(otherIndustry, null); */
+		
+		/* Get all the all the matching Mentors */
+	    SearchEntity mentorMatch = new SearchEntity("SBE_MENTOR_RECOMMENDATIONS_BASIC", "Matching Mentor")
+	            .addFilter("PRI_IS_MENTOR", true)
+				.addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, "PER_%")
+				.addFilter("PRI_ETH_BACK", SearchEntity.StringFilter.LIKE, assocMentorGen)
+				.addFilter("PRI_AREA_EXPERTISE", SearchEntity.StringFilter.LIKE, assocMentorExp)
+
+				/* Table Columns */
+				.addColumn("PRI_IMAGE_URL", "Image")
+				.addColumn("PRI_NAME", "Name")
+				.addColumn("PRI_AREA_EXPERTISE", "Expertise")
+
+				/* Row Actions */
+				/* .addAction("PRI_EVENT_VIEW", "View") */
+
+
+	            .setPageStart(0).setPageSize(1000);
+
+	    mentorMatch.setRealm(serviceToken.getRealm());
+		
+		List<BaseEntity> matchedMentor = beUtils.getBaseEntitys(mentorMatch);
+		
+		System.out.println("List of matched Mentor: = " +matchedMentor);
 		retract( $message);
 	end
