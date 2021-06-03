@@ -32,28 +32,32 @@ rule "LNK_AGREE_TO_MENTOR"
 
 		QDataAskMessage askMsg = QuestionUtils.getAsks(userToken.getUserCode(), targetCode, "QUE_MENTOR_AGREE_TO_MENTOR_GRP", userToken.getToken());
 
-		if (askMsg != null) {
-			/* Hide Questions if answer is NO */
-			if (value.equals("SEL_NO")) {
-				if (!(askMsg.getItems().length > 0)) {
-					for (Ask childAsk : askMsg.getItems()[0].getChildAsks()) {
+		if (value.equals("SEL_YES") || value.equals("SEL_NO")) {
+			if (askMsg != null) {
+				/* Hide Questions if answer is NO */
+				if (value.equals("SEL_NO")) {
+					if (!(askMsg.getItems().length > 0)) {
+						for (Ask childAsk : askMsg.getItems()[0].getChildAsks()) {
 
-						String attrCode = childAsk.getQuestionCode();
+							String attrCode = childAsk.getQuestionCode();
 
-						if (!attrCode.equals("QUE_SUBMIT") && !attrCode.equals("QUE_AGREE_MENTOR")) {
-							childAsk.setHidden(true);
+							if (!attrCode.equals("QUE_SUBMIT") && !attrCode.equals("QUE_AGREE_MENTOR")) {
+								childAsk.setHidden(true);
+							}
 						}
+					} else {
+						System.out.println("Ask Message Items is empty!!!");
 					}
-				} else {
-					System.out.println("Ask Message Items is empty!!!");
 				}
+				/* Send Asks regardless */
+				askMsg.setToken(userToken.getToken());
+				askMsg.setReplace(true);
+				VertxUtils.writeMsg("webcmds", askMsg);
+			} else {
+				System.out.println("Could not fetch ask from cache: QUE_QA_HOST_CPY_REP_GRP");
 			}
-			/* Send Asks regardless */
-			askMsg.setToken(userToken.getToken());
-			askMsg.setReplace(true);
-			VertxUtils.writeMsg("webcmds", askMsg);
 		} else {
-			System.out.println("Could not fetch ask from cache: QUE_QA_HOST_CPY_REP_GRP");
+			System.out.println("Value is invalid");
 		}
 
 		output.setTypeOfResult("NONE");
