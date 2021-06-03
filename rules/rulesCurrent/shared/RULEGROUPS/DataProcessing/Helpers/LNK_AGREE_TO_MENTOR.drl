@@ -36,6 +36,7 @@ rule "LNK_AGREE_TO_MENTOR"
 			if (askMsg != null) {
 				/* Hide Questions if answer is NO */
 				if (value.equals("SEL_NO")) {
+					System.out.println("MSG = " + JsonUtils.toJson(askMsg));
 					if (!(askMsg.getItems().length > 0)) {
 						for (Ask childAsk : askMsg.getItems()[0].getChildAsks()) {
 
