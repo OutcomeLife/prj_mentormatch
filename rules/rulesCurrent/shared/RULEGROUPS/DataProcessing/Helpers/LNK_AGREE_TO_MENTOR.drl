@@ -31,7 +31,6 @@ rule "LNK_AGREE_TO_MENTOR"
  		System.out.println("LNK_AGREE_TO_MENTOR:: value = " + value);
 
 		Boolean isSpecifyAbnDisabled = true;
-
 		QDataAskMessage askMsg = QuestionUtils.getAsks(userToken.getUserCode(), targetCode, "QUE_MENTOR_AGREE_TO_MENTOR_GRP", userToken.getToken());
 
 		if (value.equals("SEL_YES")) {
@@ -46,7 +45,7 @@ rule "LNK_AGREE_TO_MENTOR"
 		}
 
 		if (value.equals("SEL_NO")) {
-			for (Ask childAsk : askMsg.getChildAsks()) {
+			for (Ask childAsk : askMsg.getItems()[0].getChildAsks()) {
 
 				String attrCode = childAsk.getQuestionCode();
 
