@@ -18,7 +18,6 @@ rule "LNK_AGREE_TO_MENTOR"
 		userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken (code == "PER_SERVICE" )
 		answer : Answer( attributeCode == "LNK_AGREE_TO_MENTOR" )
-		ask: Ask( 	ask.getQuestion().getCode() == "QUE_MENTOR_AGREE_TO_MENTOR_GRP" )
 		output : OutputParam()
 		beUtils : BaseEntityUtils()
 
@@ -35,7 +34,7 @@ rule "LNK_AGREE_TO_MENTOR"
 			QDataAskMessage askMsg = QuestionUtils.getAsks(userToken.getUserCode(), targetCode, "QUE_MENTOR_AGREE_TO_MENTOR_GRP", userToken.getToken());
 
 			if (askMsg != null) {
-				QDataAskMessage filteredAskMsg = new QDataAskMessage(ask);
+				QDataAskMessage filteredAskMsg = new QDataAskMessage(askMsg);
 				filteredAskMsg.setToken(userToken.getToken());
 				filteredAskMsg.setReplace(true);
 				VertxUtils.writeMsg("webcmds", filteredAskMsg);
