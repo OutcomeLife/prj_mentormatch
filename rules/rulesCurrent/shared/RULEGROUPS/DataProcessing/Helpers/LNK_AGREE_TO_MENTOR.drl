@@ -34,10 +34,9 @@ rule "LNK_AGREE_TO_MENTOR"
 			QDataAskMessage askMsg = QuestionUtils.getAsks(userToken.getUserCode(), targetCode, "QUE_MENTOR_AGREE_TO_MENTOR_GRP", userToken.getToken());
 
 			if (askMsg != null) {
-				QDataAskMessage filteredAskMsg = new QDataAskMessage(askMsg);
-				filteredAskMsg.setToken(userToken.getToken());
-				filteredAskMsg.setReplace(true);
-				VertxUtils.writeMsg("webcmds", filteredAskMsg);
+				askMsg.setToken(userToken.getToken());
+				askMsg.setReplace(true);
+				VertxUtils.writeMsg("webcmds", askMsg);
 			} else {
 				System.out.println("Could not fetch ask from cache: QUE_QA_HOST_CPY_REP_GRP");
 			}
