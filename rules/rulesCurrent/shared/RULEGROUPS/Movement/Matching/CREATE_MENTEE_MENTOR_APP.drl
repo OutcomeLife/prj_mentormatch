@@ -42,26 +42,21 @@ rule "CREATE_MENTEE_MENTOR_APP"
 		bucketCode : String(bucketCode.equals("TRAINING"))
 		controlSignalCode : String(controlSignalCode.equals("MATCH"))
 		associatedMenteeBe : BaseEntity( code matches "PER_\\S+" )
-
      then
- 		System.out.println("CREATE_MENTEE_MENTOR_APP: Rule fired" );
+ 		System.out.println(drools.getRule().getName() + " :: Rule fired" );
 
 		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
+		
+		System.out.println(drools.getRule().getName() + " :: newApplication = " + newApplication);
+		System.out.println(drools.getRule().getName() + " :: associatedMenteeBe = " + associatedMenteeBe);
 
 		/* Refresh the BaseEntity because mysterious reasons told to me by Chris... */
  		newApplication = beUtils.getBaseEntityByCode(newApplication.getCode());
  		associatedMenteeBe = beUtils.getBaseEntityByCode(associatedMenteeBe.getCode());
-
-		/*Answer answer = new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_STATUS", "MATCHED");
-		beUtils.saveAnswer(answer);
-		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_DISABLED", "false"));*/
-
-		/*System.out.println("SET_PRI_STATUS_AS_MATCHED: Answer = " + answer);*/
-		System.out.println("SET_PRI_STATUS_AS_MATCHED: newApplication = " + newApplication);
-
+		
 		/* Save status to the PER */
 		String appMentee = associatedMenteeBe.getCode();
-		System.out.println("appMentee = " + appMentee);
+		System.out.println(drools.getRule().getName() + " :: appMentee = " + appMentee);
 
 		if (appMentee != null) {
  				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTEE_CODE", appMentee));

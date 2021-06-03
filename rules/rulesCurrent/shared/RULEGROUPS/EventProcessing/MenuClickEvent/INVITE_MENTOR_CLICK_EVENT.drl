@@ -31,6 +31,9 @@ rule "INVITE_MENTOR_CLICK_EVENT"
 
 		String user = userToken.getUserCode();
 		System.out.println(drools.getRule().getName() +" :: user: " + user);
+		
+		String targetCode = $message.getData().getTargetCode();
+		System.out.println(drools.getRule().getName() +" :: targetCode: " +targetCode);
 
         /* Set userToken and serviceToken */
         /*output.setUserToken(userToken);
@@ -41,7 +44,7 @@ rule "INVITE_MENTOR_CLICK_EVENT"
 		output.setResultCode("START_MATCH");
 		output.setAskSourceCode(user);
 		/* targetCode is the BaseEntity we want to finish */
-		output.setTargetCode(user);
+		output.setTargetCode(targetCode);
 		System.out.println(drools.getRule().getName() +" :: Workflow started " + output.getResultCode());
 		retract( $message);
 	end
