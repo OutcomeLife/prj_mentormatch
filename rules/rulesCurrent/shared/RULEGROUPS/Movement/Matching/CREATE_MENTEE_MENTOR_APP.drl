@@ -42,6 +42,7 @@ rule "CREATE_MENTEE_MENTOR_APP"
 		bucketCode : String(bucketCode.equals("TRAINING"))
 		controlSignalCode : String(controlSignalCode.equals("MATCH"))
 		associatedMenteeBe : BaseEntity( code matches "PER_\\S+" )
+		associatedMentorBe : BaseEntity( code matches "PER_\\S+" )
      then
  		System.out.println(drools.getRule().getName() + " :: Rule fired" );
 
@@ -66,20 +67,16 @@ rule "CREATE_MENTEE_MENTOR_APP"
 
 		/* Getting Mentor & Mentee values */
 
-		String mentorPer = beUtils.quantumStrip(newApplication, "LNK_SELECT_MENTOR", "mentorPer");
-		BaseEntity assocMentorPer = beUtils.quantumBe(mentorPer, "assocMentorPer");
-		System.out.println("assocMentorPer: " +assocMentorPer);
+		String asscMentorCode = associatedMentorBe.getCode();
+		System.out.println(drools.getRule().getName() + " :: asscMentorCode: " +asscMentorCode);
 
-		if (mentorPer != null) {
- 				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTOR_CODE", mentorPer));
+		if (asscMentorCode != null) {
+ 				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTOR_CODE", asscMentorCode));
 		} else {
 			System.out.println("ERROR: Null mentorPer");
 		}
 
-		String assocMentee = beUtils.quantumStrip(newApplication, "PRI_MENTEE_CODE", "assocMentee");
-		System.out.println("assocMentee: " +assocMentee);
-
-		if (associatedMenteeBe != null && assocMentorPer != null) {
+		if (associatedMenteeBe != null && associatedMentorBe != null) {
 
 		/* Setting Application values */
 
@@ -130,7 +127,7 @@ rule "CREATE_MENTEE_MENTOR_APP"
 			}
 
 			/* Setting Mentor Values */
-			String mentorName = assocMentorPer.getValue("PRI_FIRSTNAME", null);
+			String mentorName = associatedMentorBe.getValue("PRI_FIRSTNAME", null);
 			if (mentorName != null) {
 				Answer answer = new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTOR_NAME", mentorName);
 				beUtils.saveAnswer(answer);
@@ -140,14 +137,11 @@ rule "CREATE_MENTEE_MENTOR_APP"
 
 			/* Saving APP code in PER Mentor */
 			if (newApplication.getCode() != null) {
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), assocMentorPer.getCode(), "PRI_APP_LNK_CODE", newApplication.getCode()));
-
-				String assocAppMentor = beUtils.quantumStrip(assocMentorPer, "PRI_APP_LNK_CODE", "assocAppMentor");
-				System.out.println("assocAppMentor: " + assocAppMentor);
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), associatedMentorBe.getCode(), "PRI_APP_LNK_CODE", newApplication.getCode()));
 			}
 
             /* Send Invite Email to Mentor */
-            String mentorEmail = assocMentorPer.getValue("PRI_EMAIL", null);
+            String mentorEmail = associatedMentorBe.getValue("PRI_EMAIL", null);
 
             if (mentorEmail != null) {
                 System.out.println("Sending invite to " + mentorEmail);
@@ -181,7 +175,6 @@ rule "CREATE_MENTEE_MENTOR_APP"
 
                 HashMap<String, String> templateData = new HashMap<String, String>();
                 templateData.put("Mentee", firstname);
-                /*templateData.put("pw", randomPW);*/
                 templateData.put("url", url);
 
                 List<String> bccList = Arrays.asList("rahul@gada.io", "tarjnee.gandhi@outcomelife.com.au");
