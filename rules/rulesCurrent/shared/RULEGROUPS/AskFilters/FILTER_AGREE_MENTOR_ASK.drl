@@ -55,7 +55,7 @@ rule "FILTER_AGREE_MENTOR_ASK"
 
 		QDataAskMessage filteredAskMsg = new QDataAskMessage(ask);
 		filteredAskMsg.setToken(userToken.getToken());
-		/*filteredAskMsg.setReplace(true);*/
+		filteredAskMsg.setReplace(true);
 		VertxUtils.writeMsg("webcmds", filteredAskMsg);
 
 		/* Create  QDataBaseEntityMessage for SearchEntity */

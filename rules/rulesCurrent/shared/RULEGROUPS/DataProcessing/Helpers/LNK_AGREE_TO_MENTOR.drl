@@ -37,7 +37,7 @@ rule "LNK_AGREE_TO_MENTOR"
 			if (askMsg != null) {
 				QDataAskMessage filteredAskMsg = new QDataAskMessage(ask);
 				filteredAskMsg.setToken(userToken.getToken());
-				/*filteredAskMsg.setReplace(true);*/
+				filteredAskMsg.setReplace(true);
 				VertxUtils.writeMsg("webcmds", filteredAskMsg);
 			} else {
 				System.out.println("Could not fetch ask from cache: QUE_QA_HOST_CPY_REP_GRP");
