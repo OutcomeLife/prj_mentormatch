@@ -30,8 +30,11 @@ rule "LNK_AGREE_TO_MENTOR"
  		String value = answer.getValue();
  		System.out.println("LNK_AGREE_TO_MENTOR:: value = " + value);
 
+		Boolean isSpecifyAbnDisabled = true;
+
+		QDataAskMessage askMsg = QuestionUtils.getAsks(userToken.getUserCode(), targetCode, "QUE_MENTOR_AGREE_TO_MENTOR_GRP", userToken.getToken());
+
 		if (value.equals("SEL_YES")) {
-			QDataAskMessage askMsg = QuestionUtils.getAsks(userToken.getUserCode(), targetCode, "QUE_MENTOR_AGREE_TO_MENTOR_GRP", userToken.getToken());
 
 			if (askMsg != null) {
 				askMsg.setToken(userToken.getToken());
@@ -41,6 +44,20 @@ rule "LNK_AGREE_TO_MENTOR"
 				System.out.println("Could not fetch ask from cache: QUE_QA_HOST_CPY_REP_GRP");
 			}
 		}
+
+		if (value.equals("SEL_NO")) {
+			for (Ask childAsk : askMsg.getChildAsks()) {
+
+				String attrCode = childAsk.getQuestionCode();
+
+				if (!attrCode.equals("QUE_SUBMIT") && !attrCode.equals("QUE_AGREE_MENTOR")) {
+					System.out.println("Setting QUE_AGREE_MENTOR field to ::  " + isSpecifyAbnDisabled);
+					childAsk.setHidden(true);
+				}
+			}
+		}
+
+
 
 		output.setTypeOfResult("NONE");
 		output.setResultCode("NONE");
