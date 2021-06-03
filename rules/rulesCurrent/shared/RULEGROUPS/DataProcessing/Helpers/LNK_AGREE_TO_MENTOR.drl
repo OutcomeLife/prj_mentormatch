@@ -42,6 +42,20 @@ rule "LNK_AGREE_TO_MENTOR"
 			}
 		}
 
+		if (value.equals("SEL_NO")) {
+			for (Ask childAsk : ask.getChildAsks()) {
+
+				String attrCode = childAsk.getQuestionCode();
+
+				if (!attrCode.equals("QUE_SUBMIT") && !attrCode.equals("QUE_AGREE_MENTOR")) {
+					System.out.println("Setting QUE_AGREE_MENTOR field to ::  " + isSpecifyAbnDisabled);
+					childAsk.setHidden(true);
+				}
+			}
+		}
+
+
+
 		output.setTypeOfResult("NONE");
 		output.setResultCode("NONE");
 end
