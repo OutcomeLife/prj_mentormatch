@@ -48,7 +48,7 @@ rule "FILTER_AGREE_MENTOR_ASK"
 			String attrCode = childAsk.getQuestionCode();
 
 			if (!attrCode.equals("QUE_SUBMIT") || !attrCode.equals("QUE_AGREE_MENTOR")) {
-				System.out.println("Setting QUE_SPECIFY_ABN field to ::  " + isSpecifyAbnDisabled);
+				System.out.println("Setting QUE_AGREE_MENTOR field to ::  " + isSpecifyAbnDisabled);
 				childAsk.setHidden(true);
 			}
 		}

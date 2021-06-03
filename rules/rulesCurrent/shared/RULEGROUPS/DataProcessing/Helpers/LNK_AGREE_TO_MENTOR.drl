@@ -18,6 +18,7 @@ rule "LNK_AGREE_TO_MENTOR"
 		userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken (code == "PER_SERVICE" )
 		answer : Answer( attributeCode == "LNK_AGREE_TO_MENTOR" )
+		ask: Ask( 	ask.getQuestion().getCode() == "QUE_MENTOR_AGREE_TO_MENTOR_GRP" )
 		output : OutputParam()
 		beUtils : BaseEntityUtils()
 
