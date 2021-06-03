@@ -54,7 +54,7 @@ rule "LNK_AGREE_TO_MENTOR"
 				askMsg.setReplace(true);
 				VertxUtils.writeMsg("webcmds", askMsg);
 			} else {
-				System.out.println("Could not fetch ask from cache: QUE_QA_HOST_CPY_REP_GRP");
+				System.out.println("Could not fetch ask from cache: QUE_MENTOR_AGREE_TO_MENTOR_GRP");
 			}
 		} else {
 			System.out.println("Value is invalid");
