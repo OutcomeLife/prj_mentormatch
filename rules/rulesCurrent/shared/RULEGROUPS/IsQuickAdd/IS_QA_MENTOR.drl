@@ -44,6 +44,7 @@ rule "IS_QA_MENTOR"
  		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newBe.getCode(), "PRI_DISABLED", "false"));
  		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newBe.getCode(), "PRI_STATUS_COLOR", "#5cb85c"));
  		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newBe.getCode(), "PRI_PROFILE", "COMPLETE"));
+		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newBe.getCode(), "PRI_USER_PROFILE", "COMPLETE"));
 
 		String target = newBe.getCode();
 
