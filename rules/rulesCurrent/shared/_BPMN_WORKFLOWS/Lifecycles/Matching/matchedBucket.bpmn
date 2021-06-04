@@ -135,11 +135,11 @@
         <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
         <bpmn2:script>System.out.println(&quot;>>>ENTERING MATCHED BUCKET WORKFLOW&lt;&lt;&lt;&quot;  );
 
-bucketCode = &quot;TRAINING&quot;;
+bucketCode = &quot;MENTOR&quot;;
 kcontext.setVariable(&quot;bucketCode&quot;, bucketCode);
 System.out.println(&quot; MATCHED BUCKET :: dynamicCards: bucketCode = &quot; + bucketCode);
 
-controlSignalCode = &quot;MATCH&quot;;
+controlSignalCode = &quot;INVITE&quot;;
 kcontext.setVariable(&quot;controlSignalCode&quot;, controlSignalCode);
 System.out.println(&quot; MATCHED BUCKET :: dynamicCards: controlSignalCode = &quot; + controlSignalCode);
 
