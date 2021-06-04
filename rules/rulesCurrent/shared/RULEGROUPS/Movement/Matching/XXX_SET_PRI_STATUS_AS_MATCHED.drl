@@ -1,0 +1,170 @@
+package life.genny.rules;
+import life.genny.qwanda.message.QDataAnswerMessage;
+import life.genny.models.GennyToken;
+import life.genny.rules.QRules;
+import life.genny.utils.BaseEntityUtils;
+import life.genny.qwanda.Answer;
+import life.genny.qwanda.entity.BaseEntity;
+import life.genny.utils.OutputParam;
+import life.genny.qwandautils.KeycloakUtils;
+import java.util.List;
+import java.util.ArrayList;
+
+import io.vertx.core.json.JsonObject;
+import life.genny.qwanda.message.QDataBaseEntityMessage;
+import life.genny.qwanda.message.QEventBtnClickMessage;
+import life.genny.models.GennyToken;
+import life.genny.utils.VertxUtils;
+import life.genny.utils.OutputParam;
+import life.genny.qwanda.message.QDataAskMessage;
+import life.genny.utils.BaseEntityUtils;
+import life.genny.utils.QuestionUtils;
+import life.genny.qwandautils.JsonUtils;
+import java.util.ArrayList;
+import java.util.List;
+import life.genny.qwanda.message.QEventMessage;
+import life.genny.utils.BucketUtils;
+import life.genny.utils.TableUtils;
+import life.genny.models.ThemePosition;
+import life.genny.models.ThemeAttributeType;
+import life.genny.qwandautils.GennySettings;
+import life.genny.notifications.EmailHelper;
+
+rule "SET_PRI_STATUS_AS_MATCHED"
+    ruleflow-group 'Movement'
+    no-loop true
+    salience 1
+    when
+	 	userToken : GennyToken (code != "PER_SERVICE" )
+		serviceToken : GennyToken (code == "PER_SERVICE" )
+		output : OutputParam()
+		bucketCode : String(bucketCode.equals("TRAINING"))
+		controlSignalCode : String(controlSignalCode.equals("MATCH"))
+		targetBaseEntity : BaseEntity( code matches "PER_\\S+" )
+
+     then
+ 		System.out.println("SET_PRI_STATUS_AS_MATCHED: Rule fired" );
+
+		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
+
+		/* Refresh the BaseEntity because mysterious reasons told to me by Chris... */
+ 		targetBaseEntity = beUtils.getBaseEntityByCode(targetBaseEntity.getCode());
+		System.out.println("SET_PRI_STATUS_AS_MATCHED: targetBaseEntity = " + targetBaseEntity);
+
+		/* Get APP Code */
+		String newApplicationCode = "";
+
+		if (targetBaseEntity.getCode() != null) {
+			newApplicationCode = beUtils.quantumStrip(targetBaseEntity, "PRI_APP_LNK_CODE", "newApplication");
+			System.out.println("SET_PRI_STATUS_AS_MATCHED:: newApplicationCode: " + newApplicationCode);
+		}
+
+		BaseEntity newApplication = beUtils.quantumBe(newApplicationCode, "newApplication");
+
+		/* Get Mentee Details */
+		String associatedMenteeBeCode = beUtils.quantumStrip(newApplication, "PRI_MENTEE_CODE", "associatedMenteeBeCode");
+		System.out.println("SET_PRI_STATUS_AS_MATCHED:: associatedMenteeBeCode: " + associatedMenteeBeCode);
+		BaseEntity associatedMenteeBe = beUtils.quantumBe(associatedMenteeBeCode, "associatedMenteeBe");
+
+		/* Check if Mentor has agreed */
+		String mentorResponse = beUtils.quantumStrip(targetBaseEntity, "LNK_AGREE_TO_MENTOR", "mentorResponse");
+		System.out.println("SET_PRI_STATUS_AS_MATCHED:: mentorResponse: " + mentorResponse);
+		System.out.println("SET_PRI_STATUS_AS_MATCHED:: newApplication: " + newApplication.getCode());
+
+		if (newApplication.getCode() != null && mentorResponse.equals("SEL_YES")) {
+
+			System.out.println("## Update Mentee Status to COMPLETE ##");
+			Answer answerMenteeStatus = new Answer(userToken.getUserCode(), associatedMenteeBe.getCode(), "PRI_MATCHED_WITH_MENTOR", "COMPLETE");
+			beUtils.saveAnswer(answerMenteeStatus);
+
+			System.out.println("## Removing from Training Bucket ##");
+
+			/* Remove from Training bucket */
+			Answer answer = new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_STATUS", "MATCHED");
+			beUtils.saveAnswer(answer);
+			beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_DISABLED", "false"));
+
+			System.out.println("SET_PRI_STATUS_AS_MATCHED:: Answer = " + answer);
+			System.out.println("SET_PRI_STATUS_AS_MATCHED:: newApplication = " + newApplication);
+
+			Answer answerDisable = new Answer(userToken.getUserCode(), associatedMenteeBe.getCode(), "PRI_DISABLED", true);
+			beUtils.saveAnswer(answerDisable);
+
+			System.out.println("SET_PRI_STATUS_AS_MATCHED::DISABLE PER: Answer = " + answerDisable);
+			System.out.println("SET_PRI_STATUS_AS_MATCHED::DISABLE PER: associatedMenteeBe = " + associatedMenteeBe.getCode());
+
+			QDataBaseEntityMessage beMsg = new QDataBaseEntityMessage(newApplication);
+			beMsg.setToken(userToken.getToken());
+			beMsg.setReplace(true);
+			VertxUtils.writeMsg("webcmds", JsonUtils.toJson(beMsg));
+
+			TableUtils.moveEntity(associatedMenteeBe.getCode(), "SBE_MENTEE_TRAINING", null, beUtils);
+			TableUtils.moveEntity(newApplication.getCode(), null, "SBE_MATCHED", beUtils);
+
+		} else {
+			System.out.println("newApplication is NULL or not SEL_YES");
+		}
+
+		if (newApplication.getCode() != null && mentorResponse.equals("SEL_NO")) {
+
+			System.out.println("## Update Mentee Status to COMPLETE ##");
+			Answer answerMenteeStatus = new Answer(userToken.getUserCode(), associatedMenteeBe.getCode(), "PRI_MATCHED_WITH_MENTOR", "INCOMPLETE");
+			beUtils.saveAnswer(answerMenteeStatus);
+
+			System.out.println("## Mentor has picked SEL_NO ##");
+
+			String menteeEmail = beUtils.quantumStrip(associatedMenteeBe, "PRI_EMAIL", "menteeEmail");
+			System.out.println("SET_PRI_STATUS_AS_MATCHED:: menteeEmail: " + menteeEmail);
+
+			String menteeFirstName = beUtils.quantumStrip(associatedMenteeBe, "PRI_FIRSTNAME", "menteeFirstName");
+			System.out.println("SET_PRI_STATUS_AS_MATCHED:: menteeFirstName: " + menteeFirstName);
+
+			if (menteeEmail != null) {
+                System.out.println("Sending email saying Mentor rejected to " + menteeEmail);
+
+                BaseEntity project = beUtils.getBaseEntityByCode("PRJ_"+ serviceToken.getRealm().toUpperCase());
+
+                String token = KeycloakUtils.getImpersonatedToken(serviceToken.getKeycloakUrl(), serviceToken.getRealm(), project, menteeEmail, serviceToken.getToken());
+                System.out.println("token: " + token);
+
+                String url = GennySettings.projectUrl+"/home/UVVFX0ZBS0VfUEFSRU5U/UVVFX01FTlRPUl9BR1JFRV9UT19NRU5UT1JfR1JQ";
+                System.out.println("url: " + url);
+
+                url = url + "?token=" + token;
+                System.out.println("url: " + url);
+
+                String subject = "Your Mentor has rejected you";
+                String template_id = "d-50e0b3d1ae4f4590a6c12e69332e519f";
+
+                System.out.println("email: " + menteeEmail);
+                System.out.println("subject: " + subject);
+                System.out.println("template_id: " + template_id);
+                /*System.out.println("randomPW: " + randomPW);*/
+
+
+                HashMap<String, String> templateData = new HashMap<String, String>();
+                templateData.put("Mentee", menteeFirstName);
+                /*templateData.put("pw", randomPW);*/
+                templateData.put("url", url);
+
+                List<String> bccList = Arrays.asList("mentormatch@gada.io");
+
+                    if (true) {
+
+                    EmailHelper.sendGrid(beUtils, menteeEmail, null, bccList, subject, template_id, templateData, true);
+                    System.out.println("Sent Email to " + menteeEmail);
+                    System.out.println("bccList:: " + bccList);
+
+                    } else {
+                    System.out.println("WARNING: Email not sent because on Dev server");
+                }
+
+            } else {
+                System.out.println("ERROR: Null menteeEmail");
+            }
+		}
+
+		retract(targetBaseEntity)
+		retract(bucketCode)
+		retract(controlSignalCode)
+end
