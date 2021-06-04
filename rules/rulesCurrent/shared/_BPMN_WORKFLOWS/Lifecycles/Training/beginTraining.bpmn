@@ -311,6 +311,8 @@ BaseEntityUtils beUtils = new BaseEntityUtils(userToken);
 
 if (associatedMenteeBe != null) {
  	beUtils.saveAnswer(new Answer(userToken.getUserCode(), associatedMenteeBe.getCode(), &quot;PRI_TRAINING_STATUS&quot;, &quot;COMPLETE&quot;));
+	
+	System.out.println(&quot;SENDING MESSAGE TO FRONTEND&quot;);
 
 	QDataBaseEntityMessage msg = new QDataBaseEntityMessage(associatedMenteeBe);
 	msg.setToken(userToken.getToken());
