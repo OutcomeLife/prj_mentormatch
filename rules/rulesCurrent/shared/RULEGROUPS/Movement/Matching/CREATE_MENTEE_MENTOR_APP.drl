@@ -38,8 +38,8 @@ rule "CREATE_MENTEE_MENTOR_APP"
 	 	userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken (code == "PER_SERVICE" )
 		newApplication : BaseEntity( code matches "APP_\\S+" )
-		bucketCode : String(bucketCode.equals("TRAINING"))
-		controlSignalCode : String(controlSignalCode.equals("MATCH"))
+		bucketCode : String(bucketCode.equals("MENTOR"))
+		controlSignalCode : String(controlSignalCode.equals("INVITE"))
      then
  		System.out.println(drools.getRule().getName() + " :: Rule fired" );
 
