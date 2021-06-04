@@ -67,7 +67,7 @@ rule "SET_PRI_STATUS_AS_MATCHED"
 		BaseEntity associatedMenteeBe = beUtils.quantumBe(associatedMenteeBeCode, "associatedMenteeBe");
 
 		/* Check if Mentor has agreed */
-		String mentorResponse = beUtils.quantumStrip(targetBaseEntity, "LNK_AGREE_TO_MENTOR", "mentorResponse");
+		String mentorResponse = beUtils.quantumStrip(newApplication, "LNK_AGREE_TO_MENTOR", "mentorResponse");
 		System.out.println("SET_PRI_STATUS_AS_MATCHED:: mentorResponse: " + mentorResponse);
 		System.out.println("SET_PRI_STATUS_AS_MATCHED:: newApplication: " + newApplication.getCode());
 
