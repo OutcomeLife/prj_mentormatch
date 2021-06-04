@@ -102,7 +102,6 @@ rule "CREATE_MENTEE_MENTOR_APP"
 
             /* Send Invite Email to Mentor */
             String mentorEmail = mentorBe.getValue("PRI_EMAIL", null);
-             String mentorName = mentorBe.getValue("PRI_FIRSTNAME", null);
 
             if (mentorEmail != null) {
                 System.out.println("Sending invite to " + mentorEmail);
