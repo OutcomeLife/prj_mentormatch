@@ -30,7 +30,7 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 		associatedMenteeBe : BaseEntity()
 		bucketCode : String(bucketCode.equals("MENTOR"))
 		controlSignalCode : String(controlSignalCode.equals("RECOMMONDATION"))
-
+		beUtils : BaseEntityUtils()
     then
 		System.out.println(drools.getRule().getName()+" Processing:: " );
 		
