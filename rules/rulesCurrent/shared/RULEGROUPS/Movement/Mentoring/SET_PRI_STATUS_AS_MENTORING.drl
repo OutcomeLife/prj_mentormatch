@@ -87,6 +87,13 @@ rule "SET_PRI_STATUS_AS_MENTORING"
 			Answer answerMenteeStatus = new Answer(userToken.getUserCode(), associatedMenteeBe.getCode(), "PRI_MEETING_WITH_MENTOR", "COMPLETE");
 			beUtils.saveAnswer(answerMenteeStatus);
 
+			System.out.println("SENDING MESSAGE TO FRONTEND");
+
+			QDataBaseEntityMessage menteeMsg = new QDataBaseEntityMessage(associatedMenteeBe);
+			menteeMsg.setToken(userToken.getToken());
+			menteeMsg.setReplace(true);
+			VertxUtils.writeMsg("webcmds", JsonUtils.toJson(menteeMsg));
+
 			System.out.println("Sending email to mentee for accepting meeting request");
 
 			/* SEND EMAIL */
