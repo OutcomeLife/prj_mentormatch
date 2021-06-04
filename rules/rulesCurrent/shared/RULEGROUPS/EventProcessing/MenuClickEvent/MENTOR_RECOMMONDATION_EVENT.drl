@@ -32,7 +32,7 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 		controlSignalCode : String(controlSignalCode.equals("RECOMMONDATION"))
 
     then
-		System.out.println(ruleDetails+" "+drools.getRule().getName()+" Processing:: " + $message );
+		System.out.println(drools.getRule().getName()+" Processing:: " + $message );
 		
 		BaseEntity user = beUtils.getBaseEntityByCode(associatedMenteeBe.getCode());
 		System.out.println("targetCode = " + user.getCode());
