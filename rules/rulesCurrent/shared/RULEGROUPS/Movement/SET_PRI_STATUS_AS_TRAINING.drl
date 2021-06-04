@@ -44,7 +44,7 @@ rule "SET_PRI_STATUS_AS_TRAINING"
      then
  		System.out.println("SET_PRI_STATUS_AS_TRAINING: Rule fired" );
 
-		/* Refresh the BaseEntity because mysterious reasons told to me by Chris... he said, "Don’t ask me why. The rules suck" */
+		/* Refresh the BaseEntity because mysterious reasons Chris told me... he said, "Don’t ask me why. The rules suck" */
  		associatedMenteeBe = beUtils.getBaseEntityByCode(associatedMenteeBe.getCode());
 		System.out.println("SET_PRI_STATUS_AS_MATCHED: associatedMenteeBe = " + associatedMenteeBe);
 
