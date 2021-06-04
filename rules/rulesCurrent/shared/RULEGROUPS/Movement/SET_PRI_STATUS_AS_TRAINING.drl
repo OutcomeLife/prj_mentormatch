@@ -39,17 +39,16 @@ rule "SET_PRI_STATUS_AS_TRAINING"
 		output : OutputParam()
 		bucketCode : String(bucketCode.equals("ON_SHORE"))
 		controlSignalCode : String(controlSignalCode.equals("TRAINING"))
-		beUtils: BaseEntityUtils()
 
      then
  		System.out.println("SET_PRI_STATUS_AS_TRAINING: Rule fired" );
+ 		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
 
 		/* Refresh the BaseEntity because mysterious reasons Chris told me... he said, "Don’t ask me why. The rules suck" */
  		associatedMenteeBe = beUtils.getBaseEntityByCode(associatedMenteeBe.getCode());
 		System.out.println("SET_PRI_STATUS_AS_MATCHED: associatedMenteeBe = " + associatedMenteeBe);
 
  		Answer answer = new Answer(userToken.getUserCode(),associatedMenteeBe.getCode(),"PRI_STATUS","TRAINING");
- 		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
  		beUtils.saveAnswer(answer);
 
 		System.out.println("SENDING MESSAGE TO FRONTEND");
