@@ -39,7 +39,7 @@ rule "SET_PRI_STATUS_AS_TRAINING"
 		output : OutputParam()
 		bucketCode : String(bucketCode.equals("ON_SHORE"))
 		controlSignalCode : String(controlSignalCode.equals("TRAINING"))
-
+		beUtils: BaseEntityUtils()
 
      then
  		System.out.println("SET_PRI_STATUS_AS_TRAINING: Rule fired" );
