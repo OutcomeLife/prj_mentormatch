@@ -22,20 +22,21 @@ import life.genny.utils.DropdownUtils;
 
 rule "MENTOR_RECOMMONDATION_EVENT"
     ruleflow-group 'EventProcessing'
-	no-loop true
-    salience 1
+		salience 2
+    no-loop
     when
+		$message : QEventMessage((data.code matches "ACT_PRI_EVENT_SELECT_MENTOR"))
 		userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken (code == "PER_SERVICE" )
-		associatedMenteeBe : BaseEntity()
-		bucketCode : String(bucketCode.equals("MENTOR"))
-		controlSignalCode : String(controlSignalCode.equals("RECOMMONDATION"))
-		beUtils : BaseEntityUtils()
+		ruleDetails : RuleDetails()
+        beUtils : BaseEntityUtils( )
+
     then
-		System.out.println(drools.getRule().getName()+" Processing:: " );
+		System.out.println(ruleDetails+" "+drools.getRule().getName()+" Processing:: " + $message );
 		
-		BaseEntity user = beUtils.getBaseEntityByCode(associatedMenteeBe.getCode());
-		System.out.println("targetCode = " + user.getCode());
+		String targetCode = $message.getData().getTargetCode();
+		System.out.println("targetCode = " + targetCode);
+		BaseEntity user = beUtils.getBaseEntityByCode(targetCode);
 	/* ================== BASIC AF MATCHING ALGORITHM ================== */
 
 		/* Recommendation Algorithm Rules
@@ -86,7 +87,5 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 			machedMentorMsg.setReplace(true);
 			VertxUtils.writeMsg("webcmds", JsonUtils.toJson(machedMentorMsg));
 		
-		retract(associatedMenteeBe);
-		retract(controlSignalCode);
-		retract(bucketCode);
+		retract( $message);
 	end
