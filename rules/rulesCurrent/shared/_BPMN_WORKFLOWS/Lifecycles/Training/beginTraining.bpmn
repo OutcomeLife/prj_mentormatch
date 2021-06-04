@@ -24,6 +24,7 @@
   <bpmn2:itemDefinition id="ItemDefinition_5" isCollection="false" structureRef="life.genny.utils.VertxUtils.ESubscriptionType"/>
   <bpmn2:itemDefinition id="ItemDefinition_6" isCollection="false" structureRef="life.genny.utils.VertxUtils"/>
   <bpmn2:itemDefinition id="ItemDefinition_4" isCollection="false" structureRef="life.genny.qwanda.Answer"/>
+  <bpmn2:itemDefinition id="ItemDefinition_7" isCollection="false" structureRef="life.genny.qwanda.message.QDataBaseEntityMessage"/>
   <bpmn2:signal id="Signal_1" name="notification"/>
   <bpmn2:signal id="Signal_2" name="dynamicControl"/>
   <bpmn2:signal id="Signal_3" name="controlSignal"/>
@@ -52,6 +53,7 @@
       <drools:import name="life.genny.utils.VertxUtils"/>
       <drools:import name="life.genny.utils.VertxUtils.ESubscriptionType"/>
       <drools:import name="life.genny.qwanda.Answer"/>
+      <drools:import name="life.genny.qwanda.message.QDataBaseEntityMessage"/>
     </bpmn2:extensionElements>
     <bpmn2:property id="userToken" itemSubjectRef="ItemDefinition_2" name="userToken"/>
     <bpmn2:property id="serviceToken" itemSubjectRef="ItemDefinition_2" name="serviceToken"/>
@@ -307,6 +309,11 @@ BaseEntityUtils beUtils = new BaseEntityUtils(userToken);
 
 if (associatedMenteeBe != null) {
  	beUtils.saveAnswer(new Answer(userToken.getUserCode(), associatedMenteeBe.getCode(), &quot;PRI_TRAINING_STATUS&quot;, &quot;COMPLETE&quot;));
+
+	QDataBaseEntityMessage msg = new QDataBaseEntityMessage(associatedMenteeBe);
+	msg.setToken(userToken.getToken());
+	msg.setReplace(true);
+	VertxUtils.writeMsg(&quot;webcmds&quot;, JsonUtils.toJson(msg));
 } else {
 	System.out.println(&quot;ERROR: Null associatedMenteeBe&quot;);
 }</bpmn2:script>
