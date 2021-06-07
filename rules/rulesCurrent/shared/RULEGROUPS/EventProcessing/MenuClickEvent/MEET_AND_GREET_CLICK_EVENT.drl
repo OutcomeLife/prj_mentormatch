@@ -15,7 +15,7 @@ rule "MEET_AND_GREET_CLICK_EVENT"
 		salience 2
     no-loop
     when
-		$message : QEventMessage(data.code matches "ACT_PRI_EVENT_SCHEDULE_MENTORING")
+		$message : QEventMessage(data.code matches " ACT_PRI_EVENT_SCHEDULE_MENTORING")
 		userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken (code == "PER_SERVICE" )
 		output : OutputParam( )
