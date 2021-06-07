@@ -31,7 +31,6 @@ rule "SBE_APPLICATIONS_MEETING"
      	System.out.println("Generate "+drools.getRule().getName() );
      	
      	System.out.println("userCode     :: " + userToken.getUserCode());
-		System.out.println("searchCode   :: " + searchBE.getCode());
 
 		BaseEntity menteeBe = beUtils.getBaseEntityByCode(serviceToken.getUserCode());
 		String applicationCode = menteeBe.getValue("PRI_APP_LNK_CODE", null);
