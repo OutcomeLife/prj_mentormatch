@@ -38,7 +38,12 @@ rule "SBE_APPLICATIONS_MEETING"
 
 
     	  SearchEntity searchBE = new SearchEntity(drools.getRule().getName(), "Meeting")
-                              .addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, applicationCode)
+    	  .addFilter("PRI_IS_INTERNSHIP", true)
+			.addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, "BEG_%")
+			.addFilter("PRI_ADDRESS_STATE", SearchEntity.StringFilter.LIKE, "%")
+			.addFilter("PRI_ASSOC_INDUSTRY", SearchEntity.StringFilter.LIKE, "%")
+			
+                              .addFilter("PRI_CODE", SearchEntity.StringFilter.EQUAL, applicationCode)
 
                               /* Columns */
                               .addColumn("PRI_MENTORING_MEETING_1", "meeting1")
@@ -62,5 +67,6 @@ rule "SBE_APPLICATIONS_MEETING"
 		QDataBaseEntityMessage msg = new QDataBaseEntityMessage(searchBE);
 		msg.setAliasCode("MEETINGS");
 		payload.add(msg);
+		VertxUtils.writeMsg("webcmds", JsonUtils.toJson(msg));
      	
 end
