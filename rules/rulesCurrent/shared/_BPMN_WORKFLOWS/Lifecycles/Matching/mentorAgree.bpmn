@@ -407,7 +407,7 @@ System.out.println(&quot;@@@@@@@@@@@@@@@@@ EXITING => controlSignalCode = &quot;
           <drools:onEntry-script scriptFormat="http://www.java.com/java">
             <drools:script>System.out.println(&quot;@@@@@@@@@@@@@@@@@ ENTERING => (MEETING_REQUEST_NOTIFICATION) rule flow group&quot;);
 
-System.out.println(&quot;MEETING_REQUEST_NOTIFICATION :: newApplicationBe: &quot; + newApplicationBe);
+System.out.println(&quot;MEETING_REQUEST_NOTIFICATION :: newApplicationBe: &quot; + applicationBe);
 System.out.println(&quot;MEETING_REQUEST_NOTIFICATION :: controlSignalCode: &quot; + controlSignalCode);</drools:script>
           </drools:onEntry-script>
           <drools:onExit-script scriptFormat="http://www.java.com/java">
