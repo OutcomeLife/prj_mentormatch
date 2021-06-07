@@ -23,7 +23,7 @@ rule "SBE_APPLICATIONS_MEETING"
    ruleflow-group 'GenerateSearches'
    no-loop true
    when
-      not  SearchEntity (parentCode == "SBE_APPLICATIONS_MEETING")
+      not  SearchEntity (code == "SBE_APPLICATIONS_MEETING")
       serviceToken : GennyToken( code == "PER_SERVICE")
       userToken : GennyToken (code != "PER_SERVICE" )
       beUtils : BaseEntityUtils()
