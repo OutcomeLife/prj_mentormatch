@@ -25,6 +25,7 @@ rule "SBE_APPLICATIONS_MEETING"
    when
       not  SearchEntity (parentCode == "SBE_APPLICATIONS_MEETING")
       serviceToken : GennyToken( code == "PER_SERVICE")
+      userToken : GennyToken (code != "PER_SERVICE" )
       beUtils : BaseEntityUtils()
    then
      	System.out.println("Generate "+drools.getRule().getName() );
@@ -32,7 +33,7 @@ rule "SBE_APPLICATIONS_MEETING"
      	System.out.println("userCode     :: " + userToken.getUserCode());
 		System.out.println("searchCode   :: " + searchBE.getCode());
 
-		BaseEntity menteeBe = beUtils.getBaseEntityByCode(userToken.getUserCode());
+		BaseEntity menteeBe = beUtils.getBaseEntityByCode(serviceToken.getUserCode());
 		String applicationCode = menteeBe.getValue("PRI_APP_LNK_CODE", null);
 
 		
