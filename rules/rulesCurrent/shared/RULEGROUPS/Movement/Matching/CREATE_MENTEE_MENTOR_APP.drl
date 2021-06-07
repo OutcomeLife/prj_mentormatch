@@ -95,11 +95,12 @@ rule "CREATE_MENTEE_MENTOR_APP"
 				System.out.println("ERROR: Null mentorName");
 			}
 
-			/* Saving APP code in PER Mentor */
+			/* Saving APP code in PER Mentor and PER Mentee */
 			if (newApplication.getCode() != null) {
 				beUtils.saveAnswer(new Answer(userToken.getUserCode(), mentorBe.getCode(), "PRI_APP_LNK_CODE", newApplication.getCode()));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), menteeBe.getCode(), "PRI_APP_LNK_CODE", newApplication.getCode()));
 			}
-
+			
             /* Send Invite Email to Mentor */
             String mentorEmail = mentorBe.getValue("PRI_EMAIL", null);
 
