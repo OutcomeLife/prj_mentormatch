@@ -292,7 +292,7 @@ System.out.println(&quot;MEETING_REQUEST_NOTIFICATION :: newApplicationBe: &quot
 System.out.println(&quot;MEETING_REQUEST_NOTIFICATION :: controlSignalCode: &quot; + controlSignalCode);</drools:script>
           </drools:onEntry-script>
           <drools:onExit-script scriptFormat="http://www.java.com/java">
-            <drools:script>System.out.println(&quot;@@@@@@@@@@@@@@@@@ EXCITING => (MEETING_REQUEST_NOTIFICATION) rule flow group&quot;);</drools:script>
+            <drools:script>System.out.println(&quot;@@@@@@@@@@@@@@@@@ EXITING => (MEETING_REQUEST_NOTIFICATION) rule flow group&quot;);</drools:script>
           </drools:onExit-script>
         </bpmn2:extensionElements>
         <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
