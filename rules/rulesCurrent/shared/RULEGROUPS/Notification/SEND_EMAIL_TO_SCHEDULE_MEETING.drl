@@ -82,7 +82,7 @@ rule "SEND_EMAIL_TO_SCHEDULE_MEETING"
 				if (menteeEmail != null) {
 
 						String subject = "Your mentor provided availability.";
-						String template_id = "d-3d5a56f4c7a9449690898696c4e46fa9";
+						String template_id = "d-61aa6b6d285d46b0ae811b09edefd54b";
 
 						String urlParentCode = "QUE_FAKE_PARENT";
                 		String urlCode = "ACT_CONFIRM_MEETING";
