@@ -1,0 +1,69 @@
+package life.genny.rules;
+
+
+import life.genny.qwanda.message.QCmdMessage;
+import life.genny.qwanda.message.QBulkMessage;
+import life.genny.qwanda.message.QDataBaseEntityMessage;
+import life.genny.qwanda.message.QEventMessage;
+import life.genny.rules.QRules;
+import life.genny.qwandautils.JsonUtils;
+import org.apache.logging.log4j.Logger;
+import java.util.List;
+import java.util.ArrayList;
+import life.genny.qwanda.entity.BaseEntity;
+import life.genny.qwanda.entity.SearchEntity;
+import life.genny.utils.VertxUtils;
+import life.genny.utils.BaseEntityUtils;
+import life.genny.models.GennyToken;
+import org.kie.api.runtime.process.WorkflowProcessInstance;
+import life.genny.utils.BaseEntityUtils;
+import life.genny.qwandautils.GennySettings;
+
+rule "SBE_APPLICATIONS_MEETING"
+   ruleflow-group 'GenerateSearches'
+   no-loop true
+   when
+      not  SearchEntity (code == "SBE_APPLICATIONS_MEETING")
+      serviceToken : GennyToken( code == "PER_SERVICE")
+      userToken : GennyToken (code != "PER_SERVICE" )
+      beUtils : BaseEntityUtils()
+   then
+     	System.out.println("Generate "+drools.getRule().getName() );
+     	
+     	System.out.println("userCode     :: " + userToken.getUserCode());
+
+		BaseEntity menteeBe = beUtils.getBaseEntityByCode(serviceToken.getUserCode());
+		String applicationCode = menteeBe.getValue("PRI_APP_LNK_CODE", null);
+
+		
+
+    	  SearchEntity searchBE = new SearchEntity(drools.getRule().getName(), "Meeting")
+                              .addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, applicationCode)
+
+                              /* Columns */
+                              .addColumn("PRI_MENTORING_MEETING_1", "meeting1")
+                              .addColumn("PRI_MENTORING_MEETING_2", "meeting2")
+                              .addColumn("PRI_MENTORING_MEETING_3", "meeting3")
+                              .addColumn("PRI_MENTORING_MEETING_4", "meeting4")
+                              .addColumn("PRI_MENTORING_MEETING_5", "meeting5")
+                              .addColumn("PRI_MENTORING_MEETING_6", "meeting6")
+                              .addColumn("PRI_MENTORING_MEETING_7", "meeting7")
+                              .addColumn("PRI_MENTORING_MEETING_8", "meeting8")
+                              .addColumn("PRI_MENTORING_MEETING_9", "meeting9")
+                              .addColumn("PRI_MENTORING_MEETING_10", "meeting10")
+                              .addColumn("PRI_MENTORING_MEETING_11", "meeting11")
+                              .addColumn("PRI_MENTORING_MEETING_12", "meeting12")
+
+                              .setPageStart(0).setPageSize(1);
+
+      searchBE.setRealm(serviceToken.getRealm());
+
+		/* Create  QDataBaseEntityMessage for SearchEntity */
+		QDataBaseEntityMessage msg = new QDataBaseEntityMessage(searchBE);
+		msg.setAliasCode("MEETINGS");
+		payload.add(msg);
+     	
+      insert(searchBE);
+      VertxUtils.putObject(serviceToken.getRealm(), "", searchBE.getCode(), searchBE, serviceToken.getToken());
+
+end

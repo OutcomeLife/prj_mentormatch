@@ -196,7 +196,7 @@ rule "MEETING_REQUEST_NOTIFICATION"
 					System.out.println("ERROR Null Mentor email");
 				}
 		}
-		
+		TableUtils.searchTable(beUtils,"SBE_APPLICATIONS_MEETING", true);
 		retract(newApplication)
 		retract(bucketCode)
 		retract(controlSignalCode)
