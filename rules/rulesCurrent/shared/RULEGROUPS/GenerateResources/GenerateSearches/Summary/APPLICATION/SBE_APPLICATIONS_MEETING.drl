@@ -25,20 +25,12 @@ rule "SBE_APPLICATIONS_MEETING"
    when
       not  SearchEntity (code == "SBE_APPLICATIONS_MEETING")
       serviceToken : GennyToken( code == "PER_SERVICE")
-      userToken : GennyToken (code != "PER_SERVICE" )
    then
      	System.out.println("Generate "+drools.getRule().getName() );
      	BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken);
 
-     	System.out.println("userCode     :: " + userToken.getUserCode());
-
-		BaseEntity menteeBe = beUtils.getBaseEntityByCode(userToken.getUserCode());
-		String applicationCode = menteeBe.getValue("PRI_APP_LNK_CODE", null);
-
-
-
-    	  SearchEntity searchBE = new SearchEntity(drools.getRule().getName(), "Meeting")
-                              .addFilter("PRI_CODE", SearchEntity.StringFilter.EQUAL, applicationCode)
+    	SearchEntity searchBE = new SearchEntity(drools.getRule().getName(), "Meeting")
+                              .addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, "APP_%")
 
                               /* Columns */
                               .addColumn("PRI_MENTORING_MEETING_1", "meeting1")
@@ -58,10 +50,7 @@ rule "SBE_APPLICATIONS_MEETING"
 
       searchBE.setRealm(serviceToken.getRealm());
 
-	/* Create  QDataBaseEntityMessage for SearchEntity */
-		QDataBaseEntityMessage msg = new QDataBaseEntityMessage(searchBE);
-		msg.setAliasCode("MEETINGS");
-		payload.add(msg);
-		VertxUtils.writeMsg("webcmds", JsonUtils.toJson(msg));
-     	
+	 insert(searchBE);
+     VertxUtils.putObject(serviceToken.getRealm(), "", searchBE.getCode(), searchBE, serviceToken.getToken());
+  	
 end
