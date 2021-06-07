@@ -10,7 +10,7 @@ import life.genny.qwanda.message.QCmdMessage;
 import life.genny.utils.VertxUtils;
 
 
-rule "INVITE_MENTOR_CLICK_EVENT"
+rule "MEET_AND_GREET_CLICK_EVENT"
     ruleflow-group 'EventProcessing'
 		salience 2
     no-loop
