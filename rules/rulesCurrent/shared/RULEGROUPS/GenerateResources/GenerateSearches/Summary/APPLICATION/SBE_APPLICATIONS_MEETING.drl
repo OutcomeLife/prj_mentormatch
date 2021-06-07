@@ -32,7 +32,7 @@ rule "SBE_APPLICATIONS_MEETING"
      	
      	System.out.println("userCode     :: " + userToken.getUserCode());
 
-		BaseEntity menteeBe = beUtils.getBaseEntityByCode(serviceToken.getUserCode());
+		BaseEntity menteeBe = beUtils.getBaseEntityByCode(userToken.getUserCode());
 		String applicationCode = menteeBe.getValue("PRI_APP_LNK_CODE", null);
 
 		
@@ -58,7 +58,9 @@ rule "SBE_APPLICATIONS_MEETING"
 
       searchBE.setRealm(serviceToken.getRealm());
 
-      insert(searchBE);
-      VertxUtils.putObject(serviceToken.getRealm(), "", searchBE.getCode(), searchBE, serviceToken.getToken());
-
+	/* Create  QDataBaseEntityMessage for SearchEntity */
+		QDataBaseEntityMessage msg = new QDataBaseEntityMessage(searchBE);
+		msg.setAliasCode("MEETINGS");
+		payload.add(msg);
+     	
 end
