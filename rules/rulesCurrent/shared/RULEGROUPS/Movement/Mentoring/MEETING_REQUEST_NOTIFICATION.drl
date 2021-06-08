@@ -44,10 +44,9 @@ rule "MEETING_REQUEST_NOTIFICATION"
 		output : OutputParam()
 		bucketCode : String(bucketCode.equals("MENTORING"))
 		controlSignalCode : String(controlSignalCode.equals("MEETING_REQUEST_NOTIFICATION"))
-		beUtils : BaseEntityUtils()
      then
  		System.out.println(drools.getRule().getName() + " Rule fired" );
-
+		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
  		newApplication = beUtils.getBaseEntityByCode(newApplication.getCode());
 
 		System.out.println(drools.getRule().getName() + " :: newApplication = " + newApplication);
@@ -196,7 +195,6 @@ rule "MEETING_REQUEST_NOTIFICATION"
 					System.out.println("ERROR Null Mentor email");
 				}
 		}
-		
 		TableUtils.searchTable(beUtils,"SBE_APPLICATIONS_MEETING", true, "PRI_CODE", newApplication.getCode());
 		retract(newApplication)
 		retract(bucketCode)
