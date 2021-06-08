@@ -33,18 +33,18 @@ rule "SBE_APPLICATIONS_MEETING"
                               .addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, "APP_%")
 
                               /* Columns */
-                              .addColumn("PRI_MENTORING_MEETING_1", "meeting1")
-                              .addColumn("PRI_MENTORING_MEETING_2", "meeting2")
-                              .addColumn("PRI_MENTORING_MEETING_3", "meeting3")
-                              .addColumn("PRI_MENTORING_MEETING_4", "meeting4")
-                              .addColumn("PRI_MENTORING_MEETING_5", "meeting5")
-                              .addColumn("PRI_MENTORING_MEETING_6", "meeting6")
-                              .addColumn("PRI_MENTORING_MEETING_7", "meeting7")
-                              .addColumn("PRI_MENTORING_MEETING_8", "meeting8")
-                              .addColumn("PRI_MENTORING_MEETING_9", "meeting9")
-                              .addColumn("PRI_MENTORING_MEETING_10", "meeting10")
-                              .addColumn("PRI_MENTORING_MEETING_11", "meeting11")
-                              .addColumn("PRI_MENTORING_MEETING_12", "meeting12")
+                              .addColumn("PRI_MENTORING_MEETING_1", "Meeting1")
+                              .addColumn("PRI_MENTORING_MEETING_2", "Meeting2")
+                              .addColumn("PRI_MENTORING_MEETING_3", "Meeting3")
+                              .addColumn("PRI_MENTORING_MEETING_4", "Meeting4")
+                              .addColumn("PRI_MENTORING_MEETING_5", "Meeting5")
+                              .addColumn("PRI_MENTORING_MEETING_6", "Meeting6")
+                              .addColumn("PRI_MENTORING_MEETING_7", "Meeting7")
+                              .addColumn("PRI_MENTORING_MEETING_8", "Meeting8")
+                              .addColumn("PRI_MENTORING_MEETING_9", "Meeting9")
+                              .addColumn("PRI_MENTORING_MEETING_10", "Meeting10")
+                              .addColumn("PRI_MENTORING_MEETING_11", "Meeting11")
+                              .addColumn("PRI_MENTORING_MEETING_12", "Meeting12")
 
                               .setPageStart(0).setPageSize(1);
 
