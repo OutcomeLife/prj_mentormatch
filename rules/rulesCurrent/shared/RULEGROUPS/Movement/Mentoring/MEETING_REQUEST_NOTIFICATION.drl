@@ -58,10 +58,10 @@ rule "MEETING_REQUEST_NOTIFICATION"
 		LocalDateTime meetingTime = newApplication.getValue("PRI_MEETING_START_DATETIME", null);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy, E, hh:mm:ss a");
 		
-		String uuid = UUID.randomUUID().toString().toUpperCase();
+		/* String uuid = UUID.randomUUID().toString().toUpperCase();
 		String newCode = "MTS_"+uuid;
 		BaseEntity newMentoringSessions = beUtils.create(newCode, newCode);
-		System.out.println("newMentoringSessions = " + newMentoringSessions);
+		System.out.println("newMentoringSessions = " + newMentoringSessions); */
 		LocalDateTime mentoringSession = meetingTime;
 		ArrayList<String> mentoringSessionLst = new ArrayList<String>();
 		
@@ -71,17 +71,16 @@ rule "MEETING_REQUEST_NOTIFICATION"
 				String firstMentoringStr = dtf.format(mentoringSession);
 				mentoringSessionLst.add(firstMentoringStr);
 				System.out.println(drools.getRule().getName() + " :: firstMentoringStr = " + firstMentoringStr);
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MENTORING_MEETING_"+ i , firstMentoringStr));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_MEETING_"+ i , firstMentoringStr));
 			}
 			else {
 				mentoringSession = mentoringSession.plusHours(336);
 				String mentoringSessionStr = dtf.format(mentoringSession);
 				mentoringSessionLst.add(mentoringSessionStr);
 				System.out.println(drools.getRule().getName() + " :: mentoringSessionStr = " + mentoringSessionStr);
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MENTORING_MEETING_"+ i , mentoringSessionStr));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_MEETING_"+ i , mentoringSessionStr));
 			}
 		}
-		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_SESSION_CODE" , newCode));
 		String meetingTimeStr = dtf.format(meetingTime);
 
 		System.out.println("^^^^^^^^^ menteeBeCode = " + menteeBeCode);
@@ -98,7 +97,7 @@ rule "MEETING_REQUEST_NOTIFICATION"
 				if (menteeEmail != null) {
 
 						String subject = "Dates and times of your upcoming MentorMatch mentoring sessions";
-						String template_id = "d-e473f5c4ed7b4e82b31509732c8f426d";
+						String template_id = "d-2c8a64540ba64935964a38087559ac84";
 
 					    HashMap<String, String> templateData = new HashMap<>();
 
@@ -145,7 +144,7 @@ rule "MEETING_REQUEST_NOTIFICATION"
 				if (mentorEmail != null) {
 
 						String subject = "Dates and times of your upcoming MentorMatch mentoring sessions – please confirm!";
-						String template_id = "d-5b5a658f5fe14ab484c715407c0d9729";
+						String template_id = "d-73a4f88952794b4fa61d60382687c5a6";
 						
 						BaseEntity project = beUtils.getBaseEntityByCode("PRJ_"+ serviceToken.getRealm().toUpperCase());
 
@@ -197,7 +196,8 @@ rule "MEETING_REQUEST_NOTIFICATION"
 					System.out.println("ERROR Null Mentor email");
 				}
 		}
-
+		
+		TableUtils.searchTable(beUtils,"SBE_APPLICATIONS_MEETING", true, "PRI_CODE", newApplication.getCode());
 		retract(newApplication)
 		retract(bucketCode)
 		retract(controlSignalCode)
