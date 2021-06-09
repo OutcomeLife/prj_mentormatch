@@ -46,6 +46,7 @@ rule "CREATE_MENTEE_MENTOR_APP"
 		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
 		
 		System.out.println(drools.getRule().getName() + " :: newApplication = " + newApplication.getCode());
+		
 
  		newApplication = beUtils.getBaseEntityByCode(newApplication.getCode());
  		
@@ -58,7 +59,9 @@ rule "CREATE_MENTEE_MENTOR_APP"
  		BaseEntity mentorBe = beUtils.getBaseEntityByCode(mentorCode);
  		BaseEntity menteeBe = beUtils.getBaseEntityByCode(menteeCode);
  		
-
+ 		/* Changing status of mentor as invite send to mentor */
+		beUtils.saveAnswer(new Answer(userToken.getUserCode(), menteeBe.getCode(), "PRI_STATUS", "MATCHED"));
+		
 		if (mentorBe != null & menteeBe != null) {
 
 			String menteeName = menteeBe.getValue("PRI_NAME", null);
