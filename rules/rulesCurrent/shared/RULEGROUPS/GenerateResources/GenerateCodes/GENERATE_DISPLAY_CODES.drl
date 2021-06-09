@@ -49,6 +49,7 @@ rule "GENERATE_DISPLAY_CODES"
 		displayCodes.put("QUE_FINISH_MENTEE", "FORM:DETAIL");
 		displayCodes.put("ACT_MENTOR_AGREE_TO_MENTOR", "FORM:DETAIL");
 		displayCodes.put("ACT_GO_TO_PROFILE", "FORM:DETAIL");
+		displayCodes.put("ACT_CONFIRM_MEETING", "FORM:DETAIL");
 
 		/* PROCESS */
 		displayCodes.put("QUE_TAB_BUCKET_VIEW", "PROCESS");
