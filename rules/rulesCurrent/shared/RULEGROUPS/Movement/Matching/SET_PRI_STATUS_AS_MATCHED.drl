@@ -117,7 +117,10 @@ rule "SET_PRI_STATUS_AS_MATCHED"
 			System.out.println("## Update Mentee Status to COMPLETE ##");
 			Answer answerMenteeStatus = new Answer(userToken.getUserCode(), associatedMenteeBe.getCode(), "PRI_MATCHED_WITH_MENTOR", "INCOMPLETE");
 			beUtils.saveAnswer(answerMenteeStatus);
-
+		
+			/* Changing status of mentor as invite send to mentor */
+			beUtils.saveAnswer(new Answer(userToken.getUserCode(), menteeBe.getCode(), "PRI_STATUS", "AVAILABLE"));
+		
 			System.out.println("## Mentor has picked SEL_NO ##");
 
 			String menteeEmail = beUtils.quantumStrip(associatedMenteeBe, "PRI_EMAIL", "menteeEmail");
