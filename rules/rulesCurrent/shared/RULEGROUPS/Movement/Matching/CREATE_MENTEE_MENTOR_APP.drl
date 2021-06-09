@@ -60,7 +60,7 @@ rule "CREATE_MENTEE_MENTOR_APP"
  		BaseEntity menteeBe = beUtils.getBaseEntityByCode(menteeCode);
  		
  		/* Changing status of mentor as invite send to mentor */
-		beUtils.saveAnswer(new Answer(userToken.getUserCode(), menteeBe.getCode(), "PRI_STATUS", "MATCHED"));
+		beUtils.saveAnswer(new Answer(userToken.getUserCode(), mentorBe.getCode(), "PRI_STATUS", "MATCHED"));
 		
 		if (mentorBe != null & menteeBe != null) {
 
