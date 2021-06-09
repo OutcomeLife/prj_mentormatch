@@ -62,6 +62,7 @@ rule "MENTOR_RECOMMONDATION_EVENT"
 	    SearchEntity matchedMentorBe = new SearchEntity("SBE_MENTOR_RECOMMENDATIONS_BASIC", "Matching Mentor")
 	            .addFilter("PRI_IS_MENTOR", true)
 				.addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, "PER_%")
+				.addFilter("PRI_STATUS", SearchEntity.StringFilter.LIKE, "AVAILABLE")
 				/*.addFilter("PRI_ETH_BACK", SearchEntity.StringFilter.LIKE, assocMentorEth)*/
 				/*.addFilter("PRI_AREA_EXPERTISE", SearchEntity.StringFilter.LIKE, assocMentorExp)*/
 
