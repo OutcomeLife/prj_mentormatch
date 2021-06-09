@@ -42,7 +42,7 @@ rule "LNK_AGREE_TO_MENTOR"
 
 							String attrCode = childAsk.getQuestionCode();
 
-							if (!attrCode.equals("QUE_SUBMIT") && !attrCode.equals("QUE_AGREE_MENTOR")) {
+							if (!attrCode.equals("QUE_SUBMIT") && !attrCode.equals("QUE_AGREE_MENTOR") && !attrCode.equals("QUE_WHY_DID_YOU_REJECT_MENTEE")) {
 								childAsk.setHidden(true);
 							}
 						}
