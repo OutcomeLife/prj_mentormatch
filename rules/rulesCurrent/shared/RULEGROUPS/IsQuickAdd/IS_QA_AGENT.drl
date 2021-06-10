@@ -152,7 +152,7 @@ rule "IS_QA_AGENT"
 			templateData.put("pw", randomPW);
 			templateData.put("url", url);
 
-			List<String> bccList = Arrays.asList("rahul@gada.io", "tarjnee.gandhi@outcomelife.com.au");
+			List<String> bccList = Arrays.asList("rahul@gada.io", "mentormatch@gada.io");
 
 			/* if (!GennySettings.projectUrl.contains("dev")) { */
 			if (true) {
