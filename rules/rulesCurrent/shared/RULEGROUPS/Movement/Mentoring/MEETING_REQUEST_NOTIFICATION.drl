@@ -113,12 +113,12 @@ rule "MEETING_REQUEST_NOTIFICATION"
 
 						if (!GennySettings.projectUrl.contains("dev")) {
 
-								List<String> bccList = Arrays.asList("mentormatch@gada.io");
+								List<String> bccList = Arrays.asList("internmatch@outcomelife.com.au");
 								EmailHelper.sendGrid(beUtils, menteeEmail, null, bccList, subject, template_id, templateData, true);
 								System.out.println("Email Sent ||| email: "+ menteeEmail + " ||| Subject: " + subject + "||| template_id: " + template_id);
 
 						} else {
-								List<String> bccList = Arrays.asList("mentormatch@gada.io");
+								List<String> bccList = Arrays.asList("tarjnee.gandhi@outcomelife.com.au");
 								EmailHelper.sendGrid(beUtils, menteeEmail, null, bccList, subject, template_id, templateData, true);
 								System.out.println("Email Sent ||| email: "+ menteeEmail + " ||| Subject: " + subject + "||| template_id: " + template_id);
 
@@ -179,13 +179,13 @@ rule "MEETING_REQUEST_NOTIFICATION"
 
 						if (!GennySettings.projectUrl.contains("dev")) {
 
-								List<String> bccList = Arrays.asList("mentormatch@gada.io");
+								List<String> bccList = Arrays.asList("internmatch@outcomelife.com.au");
 								EmailHelper.sendGrid(beUtils, mentorEmail, null, bccList, subject, template_id, templateData, true);
 
 								System.out.println("Email Sent ||| email: "+ mentorEmail + " ||| Subject: " + subject + "||| template_id: " + template_id);
 
 						} else {
-								List<String> bccList = Arrays.asList("mentormatch@gada.io");
+								List<String> bccList = Arrays.asList("tarjnee.gandhi@outcomelife.com.au");
 								EmailHelper.sendGrid(beUtils, mentorEmail, null, bccList, subject, template_id, templateData, true);
 								System.out.println("Email Sent ||| email: "+ mentorEmail + " ||| Subject: " + subject + "||| template_id: " + template_id);
 
@@ -195,6 +195,7 @@ rule "MEETING_REQUEST_NOTIFICATION"
 					System.out.println("ERROR Null Mentor email");
 				}
 		}
+		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
 		TableUtils.searchTable(beUtils,"SBE_APPLICATIONS_MEETING", true, "PRI_CODE", newApplication.getCode());
 		retract(newApplication)
 		retract(bucketCode)
