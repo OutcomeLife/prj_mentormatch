@@ -195,7 +195,6 @@ rule "MEETING_REQUEST_NOTIFICATION"
 					System.out.println("ERROR Null Mentor email");
 				}
 		}
-		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
 		TableUtils.searchTable(beUtils,"SBE_APPLICATIONS_MEETING", true, "PRI_CODE", newApplication.getCode());
 		retract(newApplication)
 		retract(bucketCode)
