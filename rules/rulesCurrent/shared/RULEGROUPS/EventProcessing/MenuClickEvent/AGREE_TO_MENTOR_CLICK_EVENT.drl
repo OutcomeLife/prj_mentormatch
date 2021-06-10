@@ -56,6 +56,26 @@ rule "AGREE_TO_MENTOR_CLICK_EVENT"
 		System.out.println("AskSourceCode: " + output.getAskSourceCode());
 		System.out.println("TargetCode: "    + output.getTargetCode());
 		System.out.println("**************************************************");
-
-		retract( $message);
+		
+		/* Sending matched mentee detail to FE */
+		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
+		BaseEntity mentorBe = beUtils.quantumBe(user, "mentorBe");
+		
+		String applicationCode = mentorBe.getValue("PRI_LNK_APP_CODE", null);
+		
+		if (applicationCode != null)
+		{
+				BaseEntity applicationBe = beUtils.quantumBe(applicationCode, "applicationBe");
+				String menteeCode = applicationBe.getValue("PRI_MENTEE_CODE", null);
+				
+				if (menteeCode != null)
+				{
+					BaseEntity menteeBe = beUtils.quantumBe(menteeCode, "menteeBe");
+					QDataBaseEntityMessge matchedMentee = new QDataBaseEntityMessage(menteeBe);
+					matchedMentee.setToken(userToken.getToken());
+					matchedMentee.setReplace(true);
+					VertxUtils.writeMsg("webcmds", JsonUtils.toJson(matchedMentee));
+				}				
+		}
+		retract($message);
 	end
