@@ -31,7 +31,7 @@ import life.genny.notifications.EmailHelper;
 import java.util.HashMap;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 
 rule "MEETING_REQUEST_NOTIFICATION"
     ruleflow-group 'Movement'
@@ -53,17 +53,17 @@ rule "MEETING_REQUEST_NOTIFICATION"
 
 		String menteeBeCode = newApplication.getValue("PRI_MENTEE_CODE", null);
 		String mentorBeCode = newApplication.getValue("PRI_MENTOR_CODE", null);
-		
+
 		LocalDateTime meetingTime = newApplication.getValue("PRI_MEETING_START_DATETIME", null);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy, E, hh:mm:ss a");
-		
+
 		/* String uuid = UUID.randomUUID().toString().toUpperCase();
 		String newCode = "MTS_"+uuid;
 		BaseEntity newMentoringSessions = beUtils.create(newCode, newCode);
 		System.out.println("newMentoringSessions = " + newMentoringSessions); */
 		LocalDateTime mentoringSession = meetingTime;
 		ArrayList<String> mentoringSessionLst = new ArrayList<String>();
-		
+
 		for(int i = 1 ; i<=12 ; i++){
 			if(i==1)
 			{
@@ -113,12 +113,12 @@ rule "MEETING_REQUEST_NOTIFICATION"
 
 						if (!GennySettings.projectUrl.contains("dev")) {
 
-								List<String> bccList = Arrays.asList("internmatch@outcomelife.com.au");
+								List<String> bccList = Arrays.asList("internmatch@outcomelife.com.au", "mentormatch@gada.io");
 								EmailHelper.sendGrid(beUtils, menteeEmail, null, bccList, subject, template_id, templateData, true);
 								System.out.println("Email Sent ||| email: "+ menteeEmail + " ||| Subject: " + subject + "||| template_id: " + template_id);
 
 						} else {
-								List<String> bccList = Arrays.asList("tarjnee.gandhi@outcomelife.com.au");
+								List<String> bccList = Arrays.asList("tarjnee.gandhi@outcomelife.com.au", "mentormatch@gada.io");
 								EmailHelper.sendGrid(beUtils, menteeEmail, null, bccList, subject, template_id, templateData, true);
 								System.out.println("Email Sent ||| email: "+ menteeEmail + " ||| Subject: " + subject + "||| template_id: " + template_id);
 
@@ -144,21 +144,21 @@ rule "MEETING_REQUEST_NOTIFICATION"
 
 						String subject = "Dates and times of your upcoming MentorMatch mentoring sessions – please confirm!";
 						String template_id = "d-73a4f88952794b4fa61d60382687c5a6";
-						
+
 						BaseEntity project = beUtils.getBaseEntityByCode("PRJ_"+ serviceToken.getRealm().toUpperCase());
 
                 		String token = KeycloakUtils.getImpersonatedToken(serviceToken.getKeycloakUrl(), serviceToken.getRealm(), project, mentorEmail, serviceToken.getToken());
                			System.out.println("token: " + token);
-						
+
 						String urlParentCode = "QUE_FAKE_PARENT";
                 		String urlCode = "ACT_MENTORING_TIME_AGREE";
 
                 		/* Encode each section of the url */
                 		urlParentCode = new String(Base64.getEncoder().encode(urlParentCode.getBytes()));
                 		urlCode = new String(Base64.getEncoder().encode(urlCode.getBytes()));
-            
+
                 		String url = GennySettings.projectUrl+"/home/"+urlParentCode+"/"+urlCode;
-                		
+
                 		url = url + "?token=" + token;
                 		System.out.println("url: " + url);
 
@@ -179,13 +179,13 @@ rule "MEETING_REQUEST_NOTIFICATION"
 
 						if (!GennySettings.projectUrl.contains("dev")) {
 
-								List<String> bccList = Arrays.asList("internmatch@outcomelife.com.au");
+								List<String> bccList = Arrays.asList("internmatch@outcomelife.com.au", "mentormatch@gada.io");
 								EmailHelper.sendGrid(beUtils, mentorEmail, null, bccList, subject, template_id, templateData, true);
 
 								System.out.println("Email Sent ||| email: "+ mentorEmail + " ||| Subject: " + subject + "||| template_id: " + template_id);
 
 						} else {
-								List<String> bccList = Arrays.asList("tarjnee.gandhi@outcomelife.com.au");
+								List<String> bccList = Arrays.asList("tarjnee.gandhi@outcomelife.com.au", "mentormatch@gada.io");
 								EmailHelper.sendGrid(beUtils, mentorEmail, null, bccList, subject, template_id, templateData, true);
 								System.out.println("Email Sent ||| email: "+ mentorEmail + " ||| Subject: " + subject + "||| template_id: " + template_id);
 
