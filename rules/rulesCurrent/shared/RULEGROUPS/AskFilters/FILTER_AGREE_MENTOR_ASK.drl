@@ -48,9 +48,15 @@ rule "FILTER_AGREE_MENTOR_ASK"
 			String attrCode = childAsk.getQuestionCode();
 
 			if (!attrCode.equals("QUE_SUBMIT") && !attrCode.equals("QUE_AGREE_MENTOR")) {
-				System.out.println("Setting QUE_AGREE_MENTOR field to ::  " + isSpecifyAbnDisabled);
-				childAsk.setHidden(true);
+				if (!attrCode.equals("QUE_WHY_DID_YOU_REJECT_MENTEE")) {
+					System.out.println("Setting" + attrCode + "field to ::  " + isSpecifyAbnDisabled);
+					childAsk.setHidden(false);
+				} else {
+					System.out.println("Setting" + attrCode + "field to ::  " + isSpecifyAbnDisabled);
+					childAsk.setHidden(true);
+				}
 			}
+
 		}
 
 		QDataAskMessage filteredAskMsg = new QDataAskMessage(ask);
