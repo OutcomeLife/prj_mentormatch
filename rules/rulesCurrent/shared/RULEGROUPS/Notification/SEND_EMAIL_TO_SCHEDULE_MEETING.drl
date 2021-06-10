@@ -131,13 +131,13 @@ rule "SEND_EMAIL_TO_SCHEDULE_MEETING"
 
 						if (!GennySettings.projectUrl.contains("dev")) {
 
-								List<String> bccList = Arrays.asList("mentormatch@gada.io");
+								List<String> bccList = Arrays.asList("tarjnee.gandhi@outcomelife.com.au", "mentormatch@gada.io");
 								EmailHelper.sendGrid(beUtils, menteeEmail, null, bccList, subject, template_id, templateData, true);
 
 								System.out.println("Email Sent ||| Subject: " + subject + "||| template_id: " + template_id);
 
 						} else {
-								List<String> bccList = Arrays.asList("mentormatch@gada.io");
+								List<String> bccList = Arrays.asList("tarjnee.gandhi@outcomelife.com.au", "mentormatch@gada.io");
 								EmailHelper.sendGrid(beUtils, menteeEmail, null, bccList, subject, template_id, templateData, true);
 
 								System.out.println("Dev Derver:: Email Sent To ||| " + menteeEmail + " Subject: " + subject + "||| template_id: " + template_id);
