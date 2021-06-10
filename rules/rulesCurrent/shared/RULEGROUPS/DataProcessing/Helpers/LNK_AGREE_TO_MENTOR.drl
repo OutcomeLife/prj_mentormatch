@@ -50,6 +50,24 @@ rule "LNK_AGREE_TO_MENTOR"
 						System.out.println("Ask Message Items is empty!!!");
 					}
 				}
+
+				/* Hide Questions if answer is YES */
+				if (value.equals("SEL_YES")) {
+					System.out.println("MSG = " + JsonUtils.toJson(askMsg));
+					if ((askMsg.getItems().length > 0)) {
+						for (Ask childAsk : askMsg.getItems()[0].getChildAsks()) {
+
+							String attrCode = childAsk.getQuestionCode();
+
+							if (attrCode.equals("QUE_WHY_DID_YOU_REJECT_MENTEE")) {
+								childAsk.setHidden(true);
+							}
+						}
+					} else {
+						System.out.println("Ask Message Items is empty!!!");
+					}
+				}
+
 				/* Send Asks regardless */
 				askMsg.setToken(userToken.getToken());
 				askMsg.setReplace(true);
