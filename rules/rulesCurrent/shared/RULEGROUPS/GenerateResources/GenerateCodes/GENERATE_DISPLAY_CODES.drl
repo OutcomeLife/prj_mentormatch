@@ -87,7 +87,7 @@ rule "GENERATE_DISPLAY_CODES"
 		displayCodes.put("SCH_ACT_PRI_EVENT_QUE_TREE_ITEM_MENTORS", "TABLE");
 		/*displayCodes.put("ACT_PRI_EVENT_SELECT_MENTOR", "TABLE"); */
 		
-		displayCodes.put("ACT_MENTOR_AGREE_TO_MENTOR", "VIEW:ASK");
+		displayCodes.put("ACT_MENTOR_AGREE_TO_MENTOR", "FORM:DETAIL");
 		
 		insert(displayCodes);
 		VertxUtils.putObject(serviceToken.getRealm(), "", "DISPLAY_CODES", displayCodes, serviceToken.getToken());
