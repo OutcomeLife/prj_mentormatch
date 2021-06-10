@@ -65,12 +65,12 @@ rule "AGREE_TO_MENTOR_CLICK_EVENT"
 		BaseEntity mentorBe = beUtils.quantumBe(user, "mentorBe");
 		
 		String applicationCode = mentorBe.getValue("PRI_LNK_APP_CODE", null);
-		
+		System.out.println(drools.getRule().getName() + " :: applicationCode " +applicationCode);
 		if (applicationCode != null)
 		{
 				BaseEntity applicationBe = beUtils.quantumBe(applicationCode, "applicationBe");
 				String menteeCode = applicationBe.getValue("PRI_MENTEE_CODE", null);
-				
+				System.out.println(drools.getRule().getName() + " :: menteeCode " +menteeCode);
 				if (menteeCode != null)
 				{
 					BaseEntity menteeBe = beUtils.quantumBe(menteeCode, "menteeBe");
