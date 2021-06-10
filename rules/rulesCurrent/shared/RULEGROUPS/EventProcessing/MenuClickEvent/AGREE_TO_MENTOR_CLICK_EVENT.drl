@@ -7,7 +7,10 @@ import io.vertx.core.json.JsonObject;
 import life.genny.utils.OutputParam;
 import org.apache.commons.lang3.StringUtils;
 import life.genny.qwanda.message.QCmdMessage;
-import life.genny.utils.VertxUtils;
+import life.genny.qwanda.message.QDataBaseEntityMessage;
+import life.genny.qwanda.attribute.EntityAttribute;
+import life.genny.qwanda.entity.BaseEntity;
+import life.genny.qwandautils.JsonUtils;
 
 
 rule "AGREE_TO_MENTOR_CLICK_EVENT"
@@ -56,6 +59,30 @@ rule "AGREE_TO_MENTOR_CLICK_EVENT"
 		System.out.println("AskSourceCode: " + output.getAskSourceCode());
 		System.out.println("TargetCode: "    + output.getTargetCode());
 		System.out.println("**************************************************");
-
-		retract( $message);
+		
+		/* Sending matched mentee detail to FE */
+		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
+		BaseEntity mentorBe = beUtils.quantumBe(user, "mentorBe");
+		
+		String applicationCode = mentorBe.getValue("PRI_APP_LNK_CODE", null);
+		System.out.println(drools.getRule().getName() + " :: applicationCode " +applicationCode);
+		if (applicationCode != null)
+		{
+				BaseEntity applicationBe = beUtils.quantumBe(applicationCode, "applicationBe");
+				String menteeCode = applicationBe.getValue("PRI_MENTEE_CODE", null);
+				System.out.println(drools.getRule().getName() + " :: menteeCode " +menteeCode);
+				if (menteeCode != null)
+				{
+					BaseEntity menteeBe = beUtils.quantumBe(menteeCode, "menteeBe");
+					
+					QDataBaseEntityMessage msg = new QDataBaseEntityMessage(menteeBe);
+					msg.setToken(beUtils.getGennyToken().getToken());
+					msg.setReplace(true);
+			
+					VertxUtils.writeMsg("webcmds",JsonUtils.toJson(msg));		  /* push out to frontend */
+							
+			
+				}				
+		}
+		retract($message);
 	end
