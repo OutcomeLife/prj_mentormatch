@@ -35,6 +35,7 @@ rule "SBE_SUMMARY_MENTORS"
 			.addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, "PER_%")
 			.addFilter("PRI_IS_MENTOR", true)
 			.addFilter("PRI_DISABLED", false)
+			.addFilter("PRI_STATUS", SearchEntity.StringFilter.LIKE, "AVAILABLE")
 
 			/* Table Columns */
 			.addColumn("PRI_NAME", "Name")
