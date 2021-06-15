@@ -47,6 +47,7 @@ rule "GENERATE_SUMMARY_CODES"
 		menteeCodes.add("SBE_SUMMARY_MENTEE");
 		menteeCodes.add("SBE_APPLICATIONS_MEETING");
 		menteeCodes.add("SBE_MATCHED_MENTORS");
+		menteeCodes.add("SBE_SUMMARY_MENTOR");
 
 		List<String> mentorCodes = new ArrayList<String>();
 		mentorCodes.add("SBE_SUMMARY_MENTOR");
