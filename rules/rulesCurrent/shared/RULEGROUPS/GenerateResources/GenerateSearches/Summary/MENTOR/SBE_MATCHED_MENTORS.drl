@@ -31,24 +31,22 @@ rule "SBE_MATCHED_MENTORS"
      	System.out.println("   Generate "+drools.getRule().getName() );
      	BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken);
 
-		/* Get all the all the matching Mentors */
-	    SearchEntity searchBE = new SearchEntity("SBE_MATCHED_MENTORS", "Matching Mentor")
-	            .addFilter("PRI_IS_MENTOR", true)
-				.addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, "PER_%")
-				.addFilter("PRI_STATUS", SearchEntity.StringFilter.LIKE, "AVAILABLE")
-				/*.addFilter("PRI_ETH_BACK", SearchEntity.StringFilter.LIKE, assocMentorEth)*/
-				/*.addFilter("PRI_AREA_EXPERTISE", SearchEntity.StringFilter.LIKE, assocMentorExp)*/
+		SearchEntity searchBE = new SearchEntity(drools.getRule().getName(), "Matched Mentors")
+			.addFilter("PRI_CODE", SearchEntity.StringFilter.LIKE, "PER_%")
+			.addFilter("PRI_IS_MENTOR", true)
+			.addFilter("PRI_STATUS", SearchEntity.StringFilter.LIKE, "AVAILABLE")
+			
+			/* Table Columns */
+			.addColumn("PRI_NAME", "Name")
+            .addColumn("PRI_EMAIL", "Email")
+            .addColumn("PRI_MOBILE", "Mobile")
+            .addColumn("PRI_LINKEDIN_URL", "LinkedIn")
 
-				/* Table Columns */
-				.addColumn("PRI_IMAGE_URL", "Image")
-				.addColumn("PRI_NAME", "Name")
-				.addColumn("PRI_AREA_EXPERTISE", "Expertise")
+			/* Actions */
 
-				/* Row Actions */
-				/* .addAction("PRI_EVENT_VIEW", "View") */
-
-
-	            .setPageStart(0).setPageSize(1000);
+			/* Display Mode */
+			.setDisplayMode("matched_mentors")
+			.setPageStart(0).setPageSize(GennySettings.defaultPageSize);
 
 		searchBE.setRealm(serviceToken.getRealm());
 		insert(searchBE);
