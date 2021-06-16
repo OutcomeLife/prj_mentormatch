@@ -38,10 +38,17 @@ rule "SBE_SUMMARY_MENTORS"
 			.addFilter("PRI_STATUS", SearchEntity.StringFilter.LIKE, "AVAILABLE")
 
 			/* Table Columns */
+			.addColumn("PRI_FIRSTNAME", "Firstname")
+			.addColumn("PRI_LASTNAME", "Lastname")
+			.addColumn("PRI_STATUS", "Status")
+			.addColumn("PRI_ETH_BACK", "Ethnicity")
+			.addColumn("PRI_AREA_EXPERTISE", "Expertise")
+			.addColumn("PRI_VIDEO_URL", "Videourl")
+			.addColumn("LNK_HOBBIES_INTEREST", "Interest")
 			.addColumn("PRI_NAME", "Name")
             .addColumn("PRI_EMAIL", "Email")
             .addColumn("PRI_MOBILE", "Mobile")
-            .addColumn("PRI_LINKEDIN_URL", "LinkedIn")
+            .addColumn("PRI_LINKEDIN_PROFILE_URL", "LinkedIn")
 
 			/* Actions */
 			.addSearchAction("PRI_EVENT_QUE_TREE_ITEM_MENTORS", "View")
