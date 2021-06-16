@@ -63,7 +63,6 @@ rule "MEETING_REQUEST_NOTIFICATION"
 		System.out.println("newMentoringSessions = " + newMentoringSessions); */
 		LocalDateTime mentoringSession = meetingTime;
 		ArrayList<String> mentoringSessionLst = new ArrayList<String>();
-
 		for(int i = 1 ; i<=12 ; i++){
 			if(i==1)
 			{
@@ -80,6 +79,8 @@ rule "MEETING_REQUEST_NOTIFICATION"
 				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_MEETING_"+ i , mentoringSessionStr));
 			}
 		}
+		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_NEXT_MEETING" , "PRI_MENTORING_MEETING_1"));
+	
 		String meetingTimeStr = dtf.format(meetingTime);
 
 		System.out.println("^^^^^^^^^ menteeBeCode = " + menteeBeCode);
