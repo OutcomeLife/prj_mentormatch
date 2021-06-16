@@ -62,6 +62,7 @@ rule "GENERATE_DISPLAY_CODES"
 		/* DASHBOARD */
 		displayCodes.put("QUE_MENTEE_PROFILE_GRP", "DASHBOARD");
 		displayCodes.put("QUE_MENTEE_TRAINING_MODULE_ONE_GRP", "DASHBOARD");
+		displayCodes.put("QUE_MENTOR_TRAINING_MODULE_ONE_GRP", "DASHBOARD");
 		displayCodes.put("QUE_DASHBOARD_VIEW", "DASHBOARD");
 		displayCodes.put("QUE_MENTEE_GRP", "DASHBOARD");
 		displayCodes.put("QUE_MENTOR_GRP", "DASHBOARD");
@@ -86,9 +87,9 @@ rule "GENERATE_DISPLAY_CODES"
 		displayCodes.put("SCH_ACT_PRI_EVENT_QUE_TREE_ITEM_MENTEES", "TABLE");
 		displayCodes.put("SCH_ACT_PRI_EVENT_QUE_TREE_ITEM_MENTORS", "TABLE");
 		/*displayCodes.put("ACT_PRI_EVENT_SELECT_MENTOR", "TABLE"); */
-		
+
 		displayCodes.put("ACT_MENTOR_AGREE_TO_MENTOR", "VIEW:ASK");
-		
+
 		insert(displayCodes);
 		VertxUtils.putObject(serviceToken.getRealm(), "", "DISPLAY_CODES", displayCodes, serviceToken.getToken());
 end
