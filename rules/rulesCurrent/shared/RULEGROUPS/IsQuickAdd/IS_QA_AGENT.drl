@@ -27,13 +27,13 @@ rule "IS_QA_AGENT"
 	 	userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken (code == "PER_SERVICE" )
 		output : OutputParam()
-		baseEntityType : String(baseEntityType.equals("IS_QA_AGENT"))
+		baseEntityType : String(baseEntityType.equals("QA_ADMIN"))
 		newBe : BaseEntity()
 		beUtils: BaseEntityUtils()
 
      then
  		System.out.println("IS_QA_AGENT: Rule fired" );
- 		System.out.println("IS_QA_AGENT: newBe = " + newBe.getCode());
+ 		System.out.println("QA_ADMIN: newBe = " + newBe.getCode());
 
  	 /* Construct answer with Source, Target, Attribute Code, Value */
 
