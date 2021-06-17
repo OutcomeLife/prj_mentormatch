@@ -199,7 +199,7 @@ System.out.println(&quot;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ newApplication: &quot; + 
         </bpmn2:extensionElements>
         <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
         <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
-        <bpmn2:script>System.out.println(&quot;%%%%%%%%%%%%%%%%%%% END trainingBucket %%%%%%%%%%%%%%%%%%%&quot;);</bpmn2:script>
+        <bpmn2:script>System.out.println(&quot;%%%%%%%%%%%%%%%%%%% END mentorTrainingBucket %%%%%%%%%%%%%%%%%%%&quot;);</bpmn2:script>
       </bpmn2:scriptTask>
       <bpmn2:sequenceFlow id="SequenceFlow_2" drools:priority="1" sourceRef="ScriptTask_1" targetRef="EndEvent_6"/>
       <bpmn2:task id="Task_1" drools:taskName="AskQuestionTask" drools:displayName="Ask Question Task" drools:icon="icons/icon-info.gif" name="QUE_MENTOR_TRAINING_MODULE_ONE_GRP">
@@ -260,7 +260,7 @@ System.out.println(&quot;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ newApplication: &quot; + 
         <bpmn2:dataInputAssociation id="DataInputAssociation_6">
           <bpmn2:targetRef>DataInput_6</bpmn2:targetRef>
           <bpmn2:assignment id="Assignment_2">
-            <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">BEGIN_TRAINING</bpmn2:from>
+            <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3">BEGIN_MENTOR_TRAINING</bpmn2:from>
             <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="FormalExpression_4">DataInput_15</bpmn2:to>
           </bpmn2:assignment>
         </bpmn2:dataInputAssociation>
