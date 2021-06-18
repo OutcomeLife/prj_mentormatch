@@ -93,7 +93,7 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
 			
 			String scheduleMsgCodeForReview = newApplication.getCode() + "_MENTORING_REVIEW_" + count;
 			/*LocalDateTime yellowTimer = mentoringSessionDT.plusHours(2); */
-			LocalDateTime orangeTimer = now.plusSeconds(20);
+			LocalDateTime yellowTimer = now.plusSeconds(20);
 			ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REVIEW_2HRS_AFTER", scheduleMsgCodeForReview,  yellowTimer, newApplication.getCode());
 			count++;
 	    }
