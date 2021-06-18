@@ -217,7 +217,7 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
 /* Get user role */
 	Optional&lt;EntityAttribute> highestRole = user.getHighestEA(&quot;PRI_IS_&quot;);
 	if (highestRole.isPresent()) {
-		String role = highestRole.get().getCode().substring();
+		String role = highestRole.get().getAttributeCode().substring();
     }
 
    System.out.println(&quot;MEETING RATING:: user role: &quot; + role);</bpmn2:script>
