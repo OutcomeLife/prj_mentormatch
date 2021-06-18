@@ -63,6 +63,8 @@ rule "REMIND_MENTORING_REVIEW_EMAIL"
 		System.out.println("^^^^^^^^^ mentorBeCode = " + mentorBeCode);
 		System.out.println("^^^^^^^^^ meetingTime = " + meetingTime);
 		
+		BaseEntity project = beUtils.getBaseEntityByCode("PRJ_"+ serviceToken.getRealm().toUpperCase());
+		
 		if (menteeBe != null) {
 			System.out.println("Sending email to mentee to review mentoring session");
 
@@ -72,6 +74,7 @@ rule "REMIND_MENTORING_REVIEW_EMAIL"
 
 				String menteeName = menteeBe.getValue("PRI_NAME", null);
 				System.out.println("menteeName: " + menteeName);
+				
 
 				if (menteeEmail != null) {
 
