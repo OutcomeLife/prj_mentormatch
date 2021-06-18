@@ -63,12 +63,10 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
 		ArrayList<String> mentoringSessionLst = new ArrayList<String>();
 		
 		for(int i = 1 ; i<=12 ; i++){
-			String mentoringSessions = mentoringSessionsBe.getValue("PRI_MENTORING_MEETING_" + i, null);
+			String mentoringSessions = newApplication.getValue("PRI_MENTORING_MEETING_" + i, null);
 			System.out.println(drools.getRule().getName() + " :: mentoringSessions: " + mentoringSessions);
 			mentoringSessionLst.add(mentoringSessions);
 		}
-		String menteeBeCode = newApplication.getValue("PRI_MENTORING_SESSION_CODE", null);
-		
 		
 		System.out.println("################## START Shleemy ##################");
 		/*System.out.println("MEETING_REMINDER_EVENT :: meetingTime : " + meetingTime);*/
@@ -92,8 +90,14 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
 			System.out.println(drools.getRule().getName() + " :: The Shleemy timer is set for ~ " + prettyOrange);
 			
 			ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REMINDER_24HRS_BEFORE", scheduleMsgCode,  orangeTimer, newApplication.getCode());
+			
+			String scheduleMsgCodeForReview = newApplication.getCode() + "_MENTORING_REVIEW_" + count;
+			/*LocalDateTime yellowTimer = mentoringSessionDT.plusHours(2); */
+			LocalDateTime orangeTimer = now.plusSeconds(20);
+			ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REVIEW_2HRS_AFTER", scheduleMsgCodeForReview,  yellowTimer, newApplication.getCode());
 			count++;
 	    }
+	    
 		System.out.println("################## END Shleemy ##################");
 		
 		
