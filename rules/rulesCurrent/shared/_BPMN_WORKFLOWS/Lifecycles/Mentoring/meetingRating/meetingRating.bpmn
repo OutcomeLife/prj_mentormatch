@@ -352,9 +352,8 @@ kcontext.setVariable(&quot;targetBeApplication&quot;, targetBeApplication);
 
 uuid = UUID.randomUUID();
 kcontext.setVariable(&quot;uuid&quot;, uuid);
-System.out.println(&quot;uuid: &quot; + uuid);
+System.out.println(&quot;DOC:: uuid: &quot; + uuid);
 
-userToken = (GennyToken)userToken;
 String newCode = &quot;DOC_&quot;+uuid;
 newCode = newCode.toUpperCase();
 newDocument = beUtils.create(newCode, newCode);
