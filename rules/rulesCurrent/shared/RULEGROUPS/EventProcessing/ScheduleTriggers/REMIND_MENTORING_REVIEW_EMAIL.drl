@@ -78,7 +78,7 @@ rule "REMIND_MENTORING_REVIEW_EMAIL"
 						String subject = "Review: Provide review to your last mentoring session!";
 						String template_id = "d-945c465f22594bfa85fab693a4f89715";
 						
-						String token = KeycloakUtils.getImpersonatedToken(serviceToken.getKeycloakUrl(), serviceToken.getRealm(), project, mentorEmail, serviceToken.getToken());
+						String token = KeycloakUtils.getImpersonatedToken(serviceToken.getKeycloakUrl(), serviceToken.getRealm(), project, menteeEmail, serviceToken.getToken());
                			System.out.println("token: " + token);
 
 						String urlParentCode = "QUE_FAKE_PARENT";
