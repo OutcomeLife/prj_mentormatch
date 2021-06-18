@@ -226,8 +226,8 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
 		role = highestRole.get().getAttributeCode().toString();
     }
 
-   System.out.println(&quot;MEETING RATING:: user role: &quot; + role);
-   kcontext.setVariable(&quot;role&quot;, role);</bpmn2:script>
+   kcontext.setVariable(&quot;role&quot;, role);
+   System.out.println(&quot;MEETING RATING:: user role: &quot; + role);</bpmn2:script>
       </bpmn2:scriptTask>
       <bpmn2:sequenceFlow id="SequenceFlow_9" drools:priority="1" sourceRef="StartEvent_4" targetRef="ScriptTask_6"/>
       <bpmn2:scriptTask id="ScriptTask_7" name="End Meeting Rating WF" scriptFormat="http://www.java.com/java">
@@ -356,8 +356,10 @@ System.out.println(&quot;DOC:: uuid: &quot; + uuid);
 
 String newCode = &quot;DOC_&quot;+uuid;
 newCode = newCode.toUpperCase();
+System.out.println(&quot;DOC:: newCode: &quot; + newCode);
 newDocument = beUtils.create(newCode, newCode);
 kcontext.setVariable(&quot;newDocument&quot;, newDocument);
+System.out.println(&quot;DOC:: newDocument: &quot; + newDocument);
 
 beUtils.saveAnswer(new Answer(userToken.getUserCode(), targetBeApplication.getCode(), &quot;PRI_MENTOR_MENTEE_MEETING_DOC&quot;, newDocument.getCode()));</bpmn2:script>
       </bpmn2:scriptTask>
