@@ -211,7 +211,7 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
 	System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
 
 /* Get user role */
-	String targetBaseEntityRole = userToken.getUserRoles();
+	String targetBaseEntityRole = (String)userToken.getUserRoles();
 	System.out.println(&quot;MEETING RATING:: targetBaseEntityRole: &quot; + targetBaseEntityRole);</bpmn2:script>
       </bpmn2:scriptTask>
       <bpmn2:sequenceFlow id="SequenceFlow_9" drools:priority="1" sourceRef="StartEvent_4" targetRef="ScriptTask_6"/>
