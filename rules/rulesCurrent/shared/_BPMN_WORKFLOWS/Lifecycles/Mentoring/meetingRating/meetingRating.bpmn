@@ -114,6 +114,7 @@
     <bpmn2:property id="submitCode" itemSubjectRef="ItemDefinition_2733" name="submitCode"/>
     <bpmn2:property id="bucketCode" itemSubjectRef="ItemDefinition_2733" name="bucketCode"/>
     <bpmn2:property id="controlSignalCode" itemSubjectRef="ItemDefinition_2733" name="controlSignalCode"/>
+    <bpmn2:property id="role" itemSubjectRef="ItemDefinition_2733" name="role"/>
     <bpmn2:endEvent id="EndEvent_2" name="END">
       <bpmn2:extensionElements>
         <drools:metaData name="elementname">
@@ -215,14 +216,15 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
 	System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
 
 /* Get user role */
-	String role = &quot;&quot;;
+	role = &quot;&quot;;
 
 	Optional&lt;EntityAttribute> highestRole = targetBaseEntity.getHighestEA(&quot;PRI_IS_&quot;);
 	if (highestRole.isPresent()) {
 		role = highestRole.get().getAttributeCode().toString();
     }
 
-   System.out.println(&quot;MEETING RATING:: user role: &quot; + role);</bpmn2:script>
+   System.out.println(&quot;MEETING RATING:: user role: &quot; + role);
+   kcontext.setVariable(&quot;role&quot;, role);</bpmn2:script>
       </bpmn2:scriptTask>
       <bpmn2:sequenceFlow id="SequenceFlow_9" drools:priority="1" sourceRef="StartEvent_4" targetRef="ScriptTask_6"/>
       <bpmn2:scriptTask id="ScriptTask_7" name="End Meeting Rating WF" scriptFormat="http://www.java.com/java">
