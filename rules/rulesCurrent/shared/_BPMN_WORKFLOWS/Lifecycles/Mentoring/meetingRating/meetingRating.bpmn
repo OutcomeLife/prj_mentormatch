@@ -68,7 +68,7 @@
   <bpmn2:itemDefinition id="ItemDefinition_481" isCollection="false" structureRef="Object"/>
   <bpmn2:itemDefinition id="ItemDefinition_482" isCollection="false" structureRef="Object"/>
   <bpmn2:itemDefinition id="ItemDefinition_483" isCollection="false" structureRef="Object"/>
-  <bpmn2:itemDefinition id="ItemDefinition_158" isCollection="false" structureRef="java.util.Set"/>
+  <bpmn2:itemDefinition id="ItemDefinition_161" isCollection="false" structureRef="java.util.Optional"/>
   <bpmn2:signal id="Signal_7" name="START_ADD_ENTITY"/>
   <bpmn2:signal id="Signal_1" name="START_POST_CREATION"/>
   <bpmn2:signal id="Signal_2" name="START_MENTOR_AGREE"/>
@@ -94,7 +94,7 @@
       <drools:import name="life.genny.qwanda.message.MessageData"/>
       <drools:import name="life.genny.utils.VertxUtils"/>
       <drools:import name="life.genny.utils.VertxUtils.ESubscriptionType"/>
-      <drools:import name="java.util.Set"/>
+      <drools:import name="java.util.Optional"/>
     </bpmn2:extensionElements>
     <bpmn2:property id="userToken" itemSubjectRef="ItemDefinition_2" name="userToken"/>
     <bpmn2:property id="serviceToken" itemSubjectRef="ItemDefinition_2" name="serviceToken"/>
@@ -213,8 +213,10 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
 	System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
 
 /* Get user role */
-	Set&lt;String> targetBaseEntityRole = userToken.getUserRoles();
-	System.out.println(&quot;MEETING RATING:: targetBaseEntityRole: &quot; + targetBaseEntityRole);</bpmn2:script>
+	Optional&lt;EntityAttribute> highestRole = targetBaseEntity.getHighestEA(&quot;PRI_IS_&quot;);
+	String role = highestRole.getCode().substring(&quot;PRI_IS_&quot;.length);
+
+	System.out.println(&quot;MEETING RATING:: user role: &quot; + role);</bpmn2:script>
       </bpmn2:scriptTask>
       <bpmn2:sequenceFlow id="SequenceFlow_9" drools:priority="1" sourceRef="StartEvent_4" targetRef="ScriptTask_6"/>
       <bpmn2:scriptTask id="ScriptTask_7" name="End Meeting Rating WF" scriptFormat="http://www.java.com/java">
