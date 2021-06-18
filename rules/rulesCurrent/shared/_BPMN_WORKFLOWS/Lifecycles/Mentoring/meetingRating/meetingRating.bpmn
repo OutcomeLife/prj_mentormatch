@@ -344,7 +344,7 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
         </bpmn2:extensionElements>
         <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
         <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
-        <bpmn2:script>BaseEntityUtils beUtils = new BaseEntityUtils(userToken);
+        <bpmn2:script>beUtils = new BaseEntityUtils(userToken);
 
 String targetBeApplicationCode = targetBaseEntity.getValue(&quot;PRI_APP_LNK_CODE&quot;, null);
 targetBeApplication = beUtils.getBaseEntityByCode(targetBeApplicationCode);
