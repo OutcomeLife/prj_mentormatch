@@ -215,10 +215,12 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
 	System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
 
 /* Get user role */
-	Optional&lt;EntityAttribute> highestRole = targetBaseEntity.getHighestEA(&quot;PRI_IS_&quot;);
-	String role = highestRole.getCode().substring();
+	Optional&lt;EntityAttribute> highestRole = user.getHighestEA(&quot;PRI_IS_&quot;);
+	if (highestRole.isPresent()) {
+		String role = highestRole.get().getCode().substring();
+    }
 
-	System.out.println(&quot;MEETING RATING:: user role: &quot; + role);</bpmn2:script>
+   System.out.println(&quot;MEETING RATING:: user role: &quot; + role);</bpmn2:script>
       </bpmn2:scriptTask>
       <bpmn2:sequenceFlow id="SequenceFlow_9" drools:priority="1" sourceRef="StartEvent_4" targetRef="ScriptTask_6"/>
       <bpmn2:scriptTask id="ScriptTask_7" name="End Meeting Rating WF" scriptFormat="http://www.java.com/java">
