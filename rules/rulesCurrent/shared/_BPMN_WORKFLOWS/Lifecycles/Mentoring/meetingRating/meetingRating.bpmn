@@ -208,7 +208,11 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
 
 	targetBaseEntity = beUtils.getBaseEntityByCode(targetCode);
 	kcontext.setVariable(&quot;targetBaseEntity&quot;, targetBaseEntity);
-	System.out.println(&quot;targetBaseEntity: &quot; + targetBaseEntity);</bpmn2:script>
+	System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
+
+/* Get user role */
+	String targetBaseEntityRole = userToken.getUserRoles();
+	System.out.println(&quot;MEETING RATING:: targetBaseEntityRole: &quot; + targetBaseEntityRole);</bpmn2:script>
       </bpmn2:scriptTask>
       <bpmn2:sequenceFlow id="SequenceFlow_9" drools:priority="1" sourceRef="StartEvent_4" targetRef="ScriptTask_6"/>
       <bpmn2:scriptTask id="ScriptTask_7" name="End Meeting Rating WF" scriptFormat="http://www.java.com/java">
