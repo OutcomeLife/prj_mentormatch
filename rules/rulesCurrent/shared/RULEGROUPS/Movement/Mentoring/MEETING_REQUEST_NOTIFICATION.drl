@@ -70,7 +70,6 @@ rule "MEETING_REQUEST_NOTIFICATION"
 				mentoringSessionLst.add(firstMentoringStr);
 				System.out.println(drools.getRule().getName() + " :: firstMentoringStr = " + firstMentoringStr);
 				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_MEETING_"+ i , firstMentoringStr));
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTOR_MENTEE_MEETING_DOC_"+ i , "null"));
 			}
 			else {
 				mentoringSession = mentoringSession.plusHours(336);
@@ -78,7 +77,6 @@ rule "MEETING_REQUEST_NOTIFICATION"
 				mentoringSessionLst.add(mentoringSessionStr);
 				System.out.println(drools.getRule().getName() + " :: mentoringSessionStr = " + mentoringSessionStr);
 				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_MEETING_"+ i , mentoringSessionStr));
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTOR_MENTEE_MEETING_DOC_"+ i , "null"));
 			}
 		}
 		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_NEXT_MEETING" , "PRI_MENTORING_MEETING_1"));
