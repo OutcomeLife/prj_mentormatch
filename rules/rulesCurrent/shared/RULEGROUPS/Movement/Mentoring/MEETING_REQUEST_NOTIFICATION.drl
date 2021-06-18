@@ -57,10 +57,6 @@ rule "MEETING_REQUEST_NOTIFICATION"
 		LocalDateTime meetingTime = newApplication.getValue("PRI_MEETING_START_DATETIME", null);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy, E, hh:mm:ss a");
 
-		/* String uuid = UUID.randomUUID().toString().toUpperCase();
-		String newCode = "MTS_"+uuid;
-		BaseEntity newMentoringSessions = beUtils.create(newCode, newCode);
-		System.out.println("newMentoringSessions = " + newMentoringSessions); */
 		LocalDateTime mentoringSession = meetingTime;
 		ArrayList<String> mentoringSessionLst = new ArrayList<String>();
 		for(int i = 1 ; i<=12 ; i++){
@@ -68,15 +64,29 @@ rule "MEETING_REQUEST_NOTIFICATION"
 			{
 				String firstMentoringStr = dtf.format(mentoringSession);
 				mentoringSessionLst.add(firstMentoringStr);
+
 				System.out.println(drools.getRule().getName() + " :: firstMentoringStr = " + firstMentoringStr);
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_MEETING_"+ i , firstMentoringStr));
+				String uuid = UUID.randomUUID().toString().toUpperCase();
+				String newCode = "MTS_"+uuid;
+				BaseEntity newMentoringSessions = beUtils.create(newCode, newCode);
+				System.out.println("newMentoringSessions = " + newMentoringSessions);
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MTS_"+ i , newCode));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MEETING_TIME"+ i , firstMentoringStr));
 			}
 			else {
+
+				String uuid = UUID.randomUUID().toString().toUpperCase();
+				String newCode = "MTS_"+uuid;
+				BaseEntity newMentoringSessions = beUtils.create(newCode, newCode);
+				System.out.println("newMentoringSessions = " + newMentoringSessions);
 				mentoringSession = mentoringSession.plusHours(336);
 				String mentoringSessionStr = dtf.format(mentoringSession);
 				mentoringSessionLst.add(mentoringSessionStr);
-				System.out.println(drools.getRule().getName() + " :: mentoringSessionStr = " + mentoringSessionStr);
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_MEETING_"+ i , mentoringSessionStr));
+					System.out.println(drools.getRule().getName() + " :: mentoringSessionStr = " + mentoringSessionStr);
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MTS_"+ i , newCode));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MEETING_TIME"+ i , mentoringSessionStr));
+
+				
 			}
 		}
 		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_NEXT_MEETING" , "PRI_MENTORING_MEETING_1"));
