@@ -174,7 +174,7 @@
           </drools:metaData>
         </bpmn2:extensionElements>
         <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
-        <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+        <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
         <bpmn2:script>System.out.println(&quot;%%%%%%%%%%%%%%%%%%% START MEETING RATING WORKFLOW %%%%%%%%%%%%%%%%%%%&quot;);
 
 bucketCode = &quot;TRAINING&quot;;
@@ -253,7 +253,7 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
             <drools:script>System.out.println(&quot;###### Exiting The ASK QUESTION TASK :: QUE_MENTEE_GRP QUESTION&quot;);</drools:script>
           </drools:onExit-script>
         </bpmn2:extensionElements>
-        <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+        <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
         <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
         <bpmn2:ioSpecification id="InputOutputSpecification_2">
           <bpmn2:dataInput id="DataInput_13" itemSubjectRef="ItemDefinition_2" name="userToken"/>
@@ -336,35 +336,7 @@ System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSigna
         </bpmn2:dataOutputAssociation>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="SequenceFlow_4" drools:priority="1" sourceRef="Task_2" targetRef="ScriptTask_7"/>
-      <bpmn2:scriptTask id="ScriptTask_1" name="DOC" scriptFormat="http://www.java.com/java">
-        <bpmn2:extensionElements>
-          <drools:metaData name="elementname">
-            <drools:metaValue><![CDATA[DOC]]></drools:metaValue>
-          </drools:metaData>
-        </bpmn2:extensionElements>
-        <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
-        <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
-        <bpmn2:script>beUtils = new BaseEntityUtils(userToken);
-
-String targetBeApplicationCode = targetBaseEntity.getValue(&quot;PRI_APP_LNK_CODE&quot;, null);
-targetBeApplication = beUtils.getBaseEntityByCode(targetBeApplicationCode);
-kcontext.setVariable(&quot;targetBeApplication&quot;, targetBeApplication);
-
-uuid = UUID.randomUUID();
-kcontext.setVariable(&quot;uuid&quot;, uuid);
-System.out.println(&quot;DOC:: uuid: &quot; + uuid);
-
-String newCode = &quot;DOC_&quot;+uuid;
-newCode = newCode.toUpperCase();
-System.out.println(&quot;DOC:: newCode: &quot; + newCode);
-newDocument = beUtils.create(newCode, newCode);
-kcontext.setVariable(&quot;newDocument&quot;, newDocument);
-System.out.println(&quot;DOC:: newDocument: &quot; + newDocument);
-
-beUtils.saveAnswer(new Answer(userToken.getUserCode(), targetBeApplication.getCode(), &quot;PRI_MENTOR_MENTEE_MEETING_DOC&quot;, newDocument.getCode()));</bpmn2:script>
-      </bpmn2:scriptTask>
-      <bpmn2:sequenceFlow id="SequenceFlow_1" drools:priority="1" sourceRef="ScriptTask_6" targetRef="ScriptTask_1"/>
-      <bpmn2:sequenceFlow id="SequenceFlow_2" drools:priority="1" sourceRef="ScriptTask_1" targetRef="Task_2"/>
+      <bpmn2:sequenceFlow id="SequenceFlow_3" drools:priority="1" sourceRef="ScriptTask_6" targetRef="Task_2"/>
     </bpmn2:subProcess>
     <bpmn2:sequenceFlow id="SequenceFlow_8" drools:priority="1" sourceRef="StartEvent_2" targetRef="SubProcess_2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_7" drools:priority="1" sourceRef="SubProcess_2" targetRef="EndEvent_2"/>
@@ -419,12 +391,6 @@ beUtils.saveAnswer(new Answer(userToken.getUserCode(), targetBeApplication.getCo
           <dc:Bounds height="22.0" width="103.0" x="853.0" y="288.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_1" bpmnElement="ScriptTask_1" isExpanded="true">
-        <dc:Bounds height="50.0" width="110.0" x="650.0" y="274.0"/>
-        <bpmndi:BPMNLabel id="BPMNLabel_9">
-          <dc:Bounds height="11.0" width="20.0" x="695.0" y="293.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="SequenceFlow_8" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_SubProcess_2">
         <di:waypoint xsi:type="dc:Point" x="106.0" y="298.0"/>
         <di:waypoint xsi:type="dc:Point" x="143.0" y="298.0"/>
@@ -455,17 +421,11 @@ beUtils.saveAnswer(new Answer(userToken.getUserCode(), targetBeApplication.getCo
         <di:waypoint xsi:type="dc:Point" x="1180.0" y="299.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_12"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_ScriptTask_6" targetElement="BPMNShape_ScriptTask_1">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_ScriptTask_6" targetElement="BPMNShape_Task_2">
         <di:waypoint xsi:type="dc:Point" x="590.0" y="299.0"/>
-        <di:waypoint xsi:type="dc:Point" x="620.0" y="299.0"/>
-        <di:waypoint xsi:type="dc:Point" x="650.0" y="299.0"/>
-        <bpmndi:BPMNLabel id="BPMNLabel_13"/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_ScriptTask_1" targetElement="BPMNShape_Task_2">
-        <di:waypoint xsi:type="dc:Point" x="760.0" y="299.0"/>
-        <di:waypoint xsi:type="dc:Point" x="805.0" y="299.0"/>
+        <di:waypoint xsi:type="dc:Point" x="720.0" y="299.0"/>
         <di:waypoint xsi:type="dc:Point" x="850.0" y="299.0"/>
-        <bpmndi:BPMNLabel id="BPMNLabel_14"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
     <bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">
