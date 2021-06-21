@@ -64,7 +64,7 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
     	String prettyNow = dtf.format(now);
     	System.out.println(drools.getRule().getName() + " :: The current date and time is ~ " + prettyNow);
 		
-		for(int i = 1 ; i<=12 ; i++){
+		for(int i = 1 ; i<=1 ; i++){
 			String mentoringSessionsCode = newApplication.getValue("PRI_MTS_" + i, null);
 			System.out.println(drools.getRule().getName() + " :: mentoringSessionsCode: " + mentoringSessionsCode);
 			BaseEntity mentoringSessionsBe = beUtils.quantumBe(mentoringSessionsCode, "mentoringSessions");
