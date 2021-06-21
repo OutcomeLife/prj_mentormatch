@@ -50,11 +50,14 @@ rule "REMIND_MENTORING_REVIEW_EMAIL"
 		String targetCode = $message.getData().getTargetCode();
 		System.out.println("targetCode: " +targetCode);	
 		
-		BaseEntity newApplication = beUtils.getBaseEntityByCode(targetCode);
-		String menteeBeCode = newApplication.getValue("PRI_MENTEE_CODE", null);
-		String mentorBeCode = newApplication.getValue("PRI_MENTOR_CODE", null);
+		BaseEntity mentoringSession = beUtils.getBaseEntityByCode(targetCode);
+		String applicationCode = mentoringSession.getValue("PRI_LNK_APP_CODE", null);
+		BaseEntity applicationBe = beUtils.getBaseEntityByCode(applicationCode);
+		beUtils.saveAnswer(new Answer(userToken.getUserCode(), applicationBe.getCode(), "PRI_CURRENT_MEETING" , targetCode));
+		String menteeBeCode = mentoringSession.getValue("PRI_MENTEE_CODE", null);
+		String mentorBeCode = mentoringSession.getValue("PRI_MENTOR_CODE", null);
 		
-		String meetingTime = newApplication.getValue("PRI_MEETING_TIME", null);
+		String meetingTime = mentoringSession.getValue("PRI_MEETING_TIME", null);
 		
 		BaseEntity menteeBe = beUtils.getBaseEntityByCode(menteeBeCode);
 		BaseEntity mentorBe = beUtils.getBaseEntityByCode(mentorBeCode);
@@ -85,7 +88,7 @@ rule "REMIND_MENTORING_REVIEW_EMAIL"
                			System.out.println("token: " + token);
 
 						String urlParentCode = "QUE_FAKE_PARENT";
-                		String urlCode = "ACT_REVIEW_LAST_MEETING";
+                		String urlCode = "ACT_AGREE_TO_MENTOR_MENTEE_MEETING";
 
                 		/* Encode each section of the url */
                 		urlParentCode = new String(Base64.getEncoder().encode(urlParentCode.getBytes()));
@@ -150,7 +153,7 @@ rule "REMIND_MENTORING_REVIEW_EMAIL"
                			System.out.println("token: " + token);
 
 						String urlParentCode = "QUE_FAKE_PARENT";
-                		String urlCode = "ACT_REVIEW_LAST_MEETING";
+                		String urlCode = "ACT_AGREE_TO_MENTOR_MENTEE_MEETING";
 
                 		/* Encode each section of the url */
                 		urlParentCode = new String(Base64.getEncoder().encode(urlParentCode.getBytes()));
