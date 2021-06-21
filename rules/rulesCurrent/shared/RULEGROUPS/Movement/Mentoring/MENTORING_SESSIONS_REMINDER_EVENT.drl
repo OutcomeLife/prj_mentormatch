@@ -58,49 +58,37 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
 		BaseEntity newApplication = beUtils.quantumBe(newApplicationCode, "newApplication");
 		
 		ArrayList<BaseEntity> mentoringSessionLst = new ArrayList<BaseEntity>();
-		
-		for(int i = 1 ; i<=12 ; i++){
-			String mentoringSessionsCode = newApplication.getValue("PRI_MTS_" + i, null);
-			System.out.println(drools.getRule().getName() + " :: mentoringSessionsCode: " + mentoringSessionsCode);
-			BaseEntity mentoringSessionsBe = beUtils.quantumBe(mentoringSessionsCode, "mentoringSessions");
-			mentoringSessionLst.add(mentoringSessionsBe);
-		}
-		
-		System.out.println("################## START Shleemy ##################");
-		/*System.out.println("MEETING_REMINDER_EVENT :: meetingTime : " + meetingTime);*/
-				
-		
-		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy, E, hh:mm:ss a");
 		
 		LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
     	String prettyNow = dtf.format(now);
     	System.out.println(drools.getRule().getName() + " :: The current date and time is ~ " + prettyNow);
-    	
-    	int count = 1;
-    	for(BaseEntity mentoringSession : mentoringSessionLst)
-    	{
-    		String scheduleMsgCode = mentoringSession.getCode() + "_SCHEDULE_SESSIONS_" + count;
-    		String meetingTime = newApplication.getValue("PRI_MEETING_TIME", null);
-	    	LocalDateTime mentoringSessionDT = LocalDateTime.parse(meetingTime, dtf);
-			LocalDateTime orangeTimer = mentoringSessionDT.minusHours(24);
-			/*LocalDateTime orangeTimer = now.plusSeconds(20);*/
-			String prettyOrange = dtf.format(orangeTimer);
-			System.out.println(drools.getRule().getName() + " :: The Shleemy timer is set for ~ " + prettyOrange);
+		
+		for(int i = 1 ; i<=1 ; i++){
+			String mentoringSessionsCode = newApplication.getValue("PRI_MTS_" + i, null);
+			System.out.println(drools.getRule().getName() + " :: mentoringSessionsCode: " + mentoringSessionsCode);
+			BaseEntity mentoringSessionsBe = beUtils.quantumBe(mentoringSessionsCode, "mentoringSessions");
 			
-			ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REMINDER_24HRS_BEFORE", scheduleMsgCode,  orangeTimer, mentoringSession.getCode());
-			
-			String scheduleMsgCodeForReview = mentoringSession.getCode() + "_MENTORING_REVIEW_" + count;
-			/*LocalDateTime yellowTimer = mentoringSessionDT.plusHours(2); */
-			LocalDateTime yellowTimer = now.plusSeconds(20);
-			ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REVIEW_2HRS_AFTER", scheduleMsgCodeForReview,  yellowTimer, mentoringSession.getCode());
-			count++;
-	    }
-	    
-		System.out.println("################## END Shleemy ##################");
-		
-		
-		
+			System.out.println("################## START Shleemy ##################");
+	    		
+	    		String scheduleMsgCode = mentoringSessionsCode + "_SCHEDULE_SESSIONS_" + i;
+	    		String meetingTime = mentoringSessionsBe.getValue("PRI_MEETING_TIME", null);
+		    	LocalDateTime mentoringSessionDT = LocalDateTime.parse(meetingTime, dtf);
+				LocalDateTime orangeTimer = mentoringSessionDT.minusHours(24);
+				/*LocalDateTime orangeTimer = now.plusSeconds(20);*/
+				String prettyOrange = dtf.format(orangeTimer);
+				/*System.out.println(drools.getRule().getName() + " :: The Shleemy timer is set for ~ " + prettyOrange);*/
+				/*ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REMINDER_24HRS_BEFORE", scheduleMsgCode,  orangeTimer, mentoringSessionsCode);*/
+				
+				String scheduleMsgCodeForReview = mentoringSessionsCode + "_MENTORING_REVIEW_" + i;
+				/*LocalDateTime yellowTimer = mentoringSessionDT.plusHours(2); */
+				LocalDateTime yellowTimer = now.plusSeconds(20);
+				System.out.println(drools.getRule().getName() + " :: The Shleemy timer is set for ~ " + yellowTimer);
+				
+				ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REVIEW_2HRS_AFTER", scheduleMsgCodeForReview,  yellowTimer, mentoringSessionsCode);
+	
+		    System.out.println("################## END Shleemy ##################");
+		}
 		retract(controlSignalCode);
-		retract(newApplication);
+		retract(targetBaseEntity);
 	end
