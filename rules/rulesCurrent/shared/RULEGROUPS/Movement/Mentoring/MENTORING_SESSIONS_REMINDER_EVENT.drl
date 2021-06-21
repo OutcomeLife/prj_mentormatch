@@ -88,5 +88,5 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
 		    System.out.println("################## END Shleemy ##################");
 		}
 		retract(controlSignalCode);
-		retract(newApplication);
+		retract(targetBaseEntity);
 	end
