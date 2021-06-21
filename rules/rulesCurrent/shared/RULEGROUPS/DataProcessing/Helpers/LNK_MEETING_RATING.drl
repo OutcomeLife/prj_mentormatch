@@ -17,7 +17,7 @@ rule "LNK_MEETING_RATING."
 	when
 		userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken (code == "PER_SERVICE" )
-		answer : Answer( attributeCode == "LNK_MEETING_RATING." )
+		answer : Answer( attributeCode == "LNK_MEETING_RATING" )
 		output : OutputParam()
 		beUtils : BaseEntityUtils()
 
