@@ -83,7 +83,8 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
 				String scheduleMsgCodeForReview = mentoringSessionsCode + "_MENTORING_REVIEW_" + i;
 				/*LocalDateTime yellowTimer = mentoringSessionDT.plusHours(2); */
 				LocalDateTime yellowTimer = now.plusSeconds(20);
-				System.out.println(drools.getRule().getName() + " :: The Shleemy timer is set for ~ " + yellowTimer);
+				System.out.println(drools.getRule().getName() + " :: The Shleemy timer is set for ~ yellowTimer " + yellowTimer);
+				System.out.println(drools.getRule().getName() + " :: The Shleemy timer is set for ~ scheduleCode " + scheduleMsgCodeForReview);
 				
 				ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REVIEW_2HRS_AFTER", scheduleMsgCodeForReview,  yellowTimer, mentoringSessionsCode);
 	
