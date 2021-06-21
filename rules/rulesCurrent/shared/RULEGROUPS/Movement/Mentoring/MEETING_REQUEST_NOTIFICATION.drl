@@ -57,10 +57,6 @@ rule "MEETING_REQUEST_NOTIFICATION"
 		LocalDateTime meetingTime = newApplication.getValue("PRI_MEETING_START_DATETIME", null);
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MMM yyyy, E, hh:mm:ss a");
 
-		/* String uuid = UUID.randomUUID().toString().toUpperCase();
-		String newCode = "MTS_"+uuid;
-		BaseEntity newMentoringSessions = beUtils.create(newCode, newCode);
-		System.out.println("newMentoringSessions = " + newMentoringSessions); */
 		LocalDateTime mentoringSession = meetingTime;
 		ArrayList<String> mentoringSessionLst = new ArrayList<String>();
 		for(int i = 1 ; i<=12 ; i++){
@@ -69,19 +65,37 @@ rule "MEETING_REQUEST_NOTIFICATION"
 				String firstMentoringStr = dtf.format(mentoringSession);
 				mentoringSessionLst.add(firstMentoringStr);
 				System.out.println(drools.getRule().getName() + " :: firstMentoringStr = " + firstMentoringStr);
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_MEETING_"+ i , firstMentoringStr));
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTOR_MENTEE_MEETING_DOC_"+ i , "null"));
+				String uuid = UUID.randomUUID().toString().toUpperCase();
+				String newCode = "MTS_"+uuid;
+				BaseEntity newMentoringSessions = beUtils.create(newCode, newCode);
+				System.out.println("newMentoringSessions = " + newMentoringSessions);
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MTS_"+ i , newCode));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MEETING_TIME" , firstMentoringStr));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_STATUS" , "UNFINISHED"));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MENTEE_CODE" , menteeBeCode));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MENTOR_CODE" , mentorBeCode));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_LNK_APP_CODE" , newApplication.getCode()));
 			}
 			else {
+
+				String uuid = UUID.randomUUID().toString().toUpperCase();
+				String newCode = "MTS_"+uuid;
+				BaseEntity newMentoringSessions = beUtils.create(newCode, newCode);
+				System.out.println("newMentoringSessions = " + newMentoringSessions);
+				/* Add time forth nightly */
 				mentoringSession = mentoringSession.plusHours(336);
 				String mentoringSessionStr = dtf.format(mentoringSession);
 				mentoringSessionLst.add(mentoringSessionStr);
 				System.out.println(drools.getRule().getName() + " :: mentoringSessionStr = " + mentoringSessionStr);
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTORING_MEETING_"+ i , mentoringSessionStr));
-				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MENTOR_MENTEE_MEETING_DOC_"+ i , "null"));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_MTS_"+ i , newCode));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MEETING_TIME" , mentoringSessionStr));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_STATUS" , "UNFINISHED"));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MENTEE_CODE" , menteeBeCode));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_MENTOR_CODE" , mentorBeCode));
+				beUtils.saveAnswer(new Answer(userToken.getUserCode(), newMentoringSessions.getCode(), "PRI_LNK_APP_CODE" , newApplication.getCode()));
 			}
 		}
-		beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_NEXT_MEETING" , "PRI_MENTORING_MEETING_1"));
+		/*beUtils.saveAnswer(new Answer(userToken.getUserCode(), newApplication.getCode(), "PRI_CURRENT_MEETING" , "PRI_MENTORING_MEETING_1"));*/
 
 		String meetingTimeStr = dtf.format(meetingTime);
 
