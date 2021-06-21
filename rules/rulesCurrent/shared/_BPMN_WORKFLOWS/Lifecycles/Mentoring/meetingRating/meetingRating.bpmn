@@ -218,10 +218,11 @@ System.out.println(&quot;Script: meetingRating:: userToken UserCode: &quot; + us
 beUtils = new BaseEntityUtils(serviceToken, userToken);
 
 /* Get application */
-/*targetUser = beUtils.getBaseEntityByCode(targetCode);*/
+targetUser = beUtils.getBaseEntityByCode(targetCode);
+System.out.println(&quot;meetingRating:: targetUser: &quot; + targetUser);
 
-if (targetCode.getCode() != null) {
-	targetBeApplicationCode = beUtils.quantumStrip(targetCode, &quot;PRI_APP_LNK_CODE&quot;, &quot;targetBeApplicationCode&quot;);
+if (targetUser.getCode() != null) {
+	targetBeApplicationCode = beUtils.quantumStrip(targetUser, &quot;PRI_APP_LNK_CODE&quot;, &quot;targetBeApplicationCode&quot;);
 	targetBeApplication = beUtils.quantumBe(targetBeApplicationCode, &quot;targetBeApplication&quot;);
 	System.out.println(&quot;meetingRating:: targetBeApplication: &quot; + targetBeApplication);
 }
