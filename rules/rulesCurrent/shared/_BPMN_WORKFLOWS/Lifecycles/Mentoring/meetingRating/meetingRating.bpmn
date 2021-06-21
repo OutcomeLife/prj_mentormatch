@@ -117,8 +117,9 @@
     <bpmn2:property id="role" itemSubjectRef="ItemDefinition_2733" name="role"/>
     <bpmn2:property id="targetBeApplication" itemSubjectRef="ItemDefinition_2016" name="targetBeApplication"/>
     <bpmn2:property id="uuid" itemSubjectRef="ItemDefinition_2141" name="uuid"/>
-    <bpmn2:property id="newDocument" itemSubjectRef="ItemDefinition_2016" name="newDocument"/>
     <bpmn2:property id="targetUser" itemSubjectRef="ItemDefinition_2016" name="targetUser"/>
+    <bpmn2:property id="targetBeApplicationCode" itemSubjectRef="ItemDefinition_2733" name="targetBeApplicationCode"/>
+    <bpmn2:property id="targetBaseEntityCode" itemSubjectRef="ItemDefinition_2733" name="targetBaseEntityCode"/>
     <bpmn2:endEvent id="EndEvent_2" name="END">
       <bpmn2:extensionElements>
         <drools:metaData name="elementname">
@@ -220,14 +221,15 @@ beUtils = new BaseEntityUtils(serviceToken, userToken);
 targetUser = beUtils.getBaseEntityByCode(targetCode);
 
 if (targetUser.getCode() != null) {
-	targetBeApplication = beUtils.quantumStrip(targetUser, &quot;PRI_APP_LNK_CODE&quot;, &quot;targetBeApplication&quot;);
+	targetBeApplicationCode = beUtils.quantumStrip(targetUser, &quot;PRI_APP_LNK_CODE&quot;, &quot;targetBeApplicationCode&quot;);
+	targetBeApplication = beUtils.quantumBe(targetBeApplicationCode, &quot;targetBeApplication&quot;);
 	System.out.println(&quot;meetingRating:: targetBeApplication: &quot; + targetBeApplication);
 }
 
 /* Get targetBaseEntity */
-
 if (targetBeApplication.getCode() != null) {
-	targetBaseEntity = beUtils.quantumStrip(targetBeApplication, &quot;PRI_CURRENT_MEETING&quot;, &quot;targetBaseEntity&quot;);
+	targetBaseEntityCode = beUtils.quantumStrip(targetBeApplication, &quot;PRI_CURRENT_MEETING&quot;, &quot;targetBaseEntityCode&quot;);
+	targetBaseEntity = beUtils.quantumBe(targetBaseEntityCode, &quot;targetBaseEntity&quot;);
 	kcontext.setVariable(&quot;targetBaseEntity&quot;, targetBaseEntity);
 	System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
 }
