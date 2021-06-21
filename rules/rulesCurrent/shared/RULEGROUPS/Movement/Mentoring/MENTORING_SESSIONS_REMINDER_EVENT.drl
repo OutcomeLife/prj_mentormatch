@@ -57,15 +57,13 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
 
 		BaseEntity newApplication = beUtils.quantumBe(newApplicationCode, "newApplication");
 		
-		String mentoringSessionsCode = newApplication.getValue("PRI_MENTORING_SESSION_CODE", null);
-
-		BaseEntity mentoringSessionsBe = beUtils.quantumBe(mentoringSessionsCode, "mentoringSessions");
-		ArrayList<String> mentoringSessionLst = new ArrayList<String>();
+		ArrayList<BaseEntity> mentoringSessionLst = new ArrayList<BaseEntity>();
 		
 		for(int i = 1 ; i<=12 ; i++){
-			String mentoringSessions = newApplication.getValue("PRI_MENTORING_MEETING_" + i, null);
-			System.out.println(drools.getRule().getName() + " :: mentoringSessions: " + mentoringSessions);
-			mentoringSessionLst.add(mentoringSessions);
+			String mentoringSessionsCode = newApplication.getValue("PRI_MTS_" + i, null);
+			System.out.println(drools.getRule().getName() + " :: mentoringSessionsCode: " + mentoringSessionsCode);
+			BaseEntity mentoringSessionsBe = beUtils.quantumBe(mentoringSessionsCode, "mentoringSessions");
+			mentoringSessionLst.add(mentoringSessionsBe);
 		}
 		
 		System.out.println("################## START Shleemy ##################");
@@ -80,21 +78,22 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
     	System.out.println(drools.getRule().getName() + " :: The current date and time is ~ " + prettyNow);
     	
     	int count = 1;
-    	for(String mentoringSession : mentoringSessionLst)
+    	for(BaseEntity mentoringSession : mentoringSessionLst)
     	{
-    		String scheduleMsgCode = newApplication.getCode() + "_SCHEDULE_SESSIONS_" + count;
-	    	LocalDateTime mentoringSessionDT = LocalDateTime.parse(mentoringSession, dtf);
+    		String scheduleMsgCode = mentoringSession.getCode() + "_SCHEDULE_SESSIONS_" + count;
+    		String meetingTime = newApplication.getValue("PRI_MEETING_TIME", null);
+	    	LocalDateTime mentoringSessionDT = LocalDateTime.parse(meetingTime, dtf);
 			LocalDateTime orangeTimer = mentoringSessionDT.minusHours(24);
 			/*LocalDateTime orangeTimer = now.plusSeconds(20);*/
 			String prettyOrange = dtf.format(orangeTimer);
 			System.out.println(drools.getRule().getName() + " :: The Shleemy timer is set for ~ " + prettyOrange);
 			
-			ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REMINDER_24HRS_BEFORE", scheduleMsgCode,  orangeTimer, newApplication.getCode());
+			ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REMINDER_24HRS_BEFORE", scheduleMsgCode,  orangeTimer, mentoringSession.getCode());
 			
-			String scheduleMsgCodeForReview = newApplication.getCode() + "_MENTORING_REVIEW_" + count;
+			String scheduleMsgCodeForReview = mentoringSession.getCode() + "_MENTORING_REVIEW_" + count;
 			/*LocalDateTime yellowTimer = mentoringSessionDT.plusHours(2); */
 			LocalDateTime yellowTimer = now.plusSeconds(20);
-			ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REVIEW_2HRS_AFTER", scheduleMsgCodeForReview,  yellowTimer, newApplication.getCode());
+			ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REVIEW_2HRS_AFTER", scheduleMsgCodeForReview,  yellowTimer, mentoringSession.getCode());
 			count++;
 	    }
 	    
