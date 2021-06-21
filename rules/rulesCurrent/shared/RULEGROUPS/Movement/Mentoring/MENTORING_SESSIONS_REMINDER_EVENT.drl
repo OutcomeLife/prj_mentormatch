@@ -64,6 +64,7 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
 			System.out.println(drools.getRule().getName() + " :: mentoringSessionsCode: " + mentoringSessionsCode);
 			BaseEntity mentoringSessionsBe = beUtils.quantumBe(mentoringSessionsCode, "mentoringSessions");
 			mentoringSessionLst.add(mentoringSessionsBe);
+			System.out.println(drools.getRule().getName() + " :: mentoringSessionLst :: " + mentoringSessionLst.get(i));
 		}
 		
 		System.out.println("################## START Shleemy ##################");
@@ -80,6 +81,7 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
     	int count = 1;
     	for(BaseEntity mentoringSession : mentoringSessionLst)
     	{
+    		System.out.println(drools.getRule().getName() + " :: mentoringSession :: " + mentoringSession);
     		String scheduleMsgCode = mentoringSession.getCode() + "_SCHEDULE_SESSIONS_" + count;
     		String meetingTime = newApplication.getValue("PRI_MEETING_TIME", null);
 	    	LocalDateTime mentoringSessionDT = LocalDateTime.parse(meetingTime, dtf);
