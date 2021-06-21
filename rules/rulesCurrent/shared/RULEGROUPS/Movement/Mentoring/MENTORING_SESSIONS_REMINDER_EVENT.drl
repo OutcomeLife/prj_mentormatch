@@ -78,12 +78,12 @@ rule "MENTORING_SESSIONS_REMINDER_EVENT"
 				/*LocalDateTime orangeTimer = now.plusSeconds(20);*/
 				String prettyOrange = dtf.format(orangeTimer);
 				System.out.println(drools.getRule().getName() + " :: The Shleemy timer is set for ~ " + prettyOrange);
-				ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REMINDER_24HRS_BEFORE", scheduleMsgCode,  orangeTimer, mentoringSession.getCode());
+				ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REMINDER_24HRS_BEFORE", scheduleMsgCode,  orangeTimer, mentoringSessionsCode);
 				
-				String scheduleMsgCodeForReview = mentoringSession.getCode() + "_MENTORING_REVIEW_" + i;
+				String scheduleMsgCodeForReview = mentoringSessionsCode + "_MENTORING_REVIEW_" + i;
 				/*LocalDateTime yellowTimer = mentoringSessionDT.plusHours(2); */
 				LocalDateTime yellowTimer = now.plusSeconds(20);
-				ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REVIEW_2HRS_AFTER", scheduleMsgCodeForReview,  yellowTimer, mentoringSession.getCode());
+				ShleemyUtils.scheduleMessage(userToken, "SCHEDULE_MENTORING_REVIEW_2HRS_AFTER", scheduleMsgCodeForReview,  yellowTimer, mentoringSessionsCode);
 	
 		    System.out.println("################## END Shleemy ##################");
 		}
