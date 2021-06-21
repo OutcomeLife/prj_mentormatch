@@ -213,30 +213,30 @@ kcontext.setVariable(&quot;userToken&quot;, userToken);
 System.out.println(&quot;Script: serviceToken: &quot; + serviceToken.getCode());
 System.out.println(&quot;Script: userToken: Code:: &quot; + userToken.getCode());
 System.out.println(&quot;Script: userToken: &quot; + userToken.getToken());
-System.out.println(&quot;Script: mentorAgree:: userToken UserCode: &quot; + userToken.getUserCode());
+System.out.println(&quot;Script: meetingRating:: userToken UserCode: &quot; + userToken.getUserCode());
 
 beUtils = new BaseEntityUtils(serviceToken, userToken);
 
 /* Get application */
-/*targetUser = beUtils.getBaseEntityByCode(targetCode);
+/*targetUser = beUtils.getBaseEntityByCode(targetCode);*/
 
-if (targetUser.getCode() != null) {
-	targetBeApplicationCode = beUtils.quantumStrip(targetUser, &quot;PRI_APP_LNK_CODE&quot;, &quot;targetBeApplicationCode&quot;);
+if (targetCode.getCode() != null) {
+	targetBeApplicationCode = beUtils.quantumStrip(targetCode, &quot;PRI_APP_LNK_CODE&quot;, &quot;targetBeApplicationCode&quot;);
 	targetBeApplication = beUtils.quantumBe(targetBeApplicationCode, &quot;targetBeApplication&quot;);
 	System.out.println(&quot;meetingRating:: targetBeApplication: &quot; + targetBeApplication);
-}*/
+}
 
 /* Get targetBaseEntity */
-/*if (targetBeApplication.getCode() != null) {
+if (targetBeApplication.getCode() != null) {
 	targetBaseEntityCode = beUtils.quantumStrip(targetBeApplication, &quot;PRI_CURRENT_MEETING&quot;, &quot;targetBaseEntityCode&quot;);
 	targetBaseEntity = beUtils.quantumBe(targetBaseEntityCode, &quot;targetBaseEntity&quot;);
 	kcontext.setVariable(&quot;targetBaseEntity&quot;, targetBaseEntity);
 	System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
-}*/
+}
 
-targetBaseEntity = beUtils.getBaseEntityByCode(targetCode);
+/*targetBaseEntity = beUtils.getBaseEntityByCode(targetCode);
 kcontext.setVariable(&quot;targetBaseEntity&quot;, targetBaseEntity);
-System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
+System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);*/
 
 /* Get user role */
 	role = &quot;&quot;;
