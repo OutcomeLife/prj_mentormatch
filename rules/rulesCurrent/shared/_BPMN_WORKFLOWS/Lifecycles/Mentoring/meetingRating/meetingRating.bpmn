@@ -118,6 +118,7 @@
     <bpmn2:property id="targetBeApplication" itemSubjectRef="ItemDefinition_2016" name="targetBeApplication"/>
     <bpmn2:property id="uuid" itemSubjectRef="ItemDefinition_2141" name="uuid"/>
     <bpmn2:property id="newDocument" itemSubjectRef="ItemDefinition_2016" name="newDocument"/>
+    <bpmn2:property id="targetUser" itemSubjectRef="ItemDefinition_2016" name="targetUser"/>
     <bpmn2:endEvent id="EndEvent_2" name="END">
       <bpmn2:extensionElements>
         <drools:metaData name="elementname">
@@ -185,38 +186,51 @@ controlSignalCode = &quot;MATCH&quot;;
 kcontext.setVariable(&quot;controlSignalCode&quot;, controlSignalCode);
 System.out.println(&quot;dynamicCards: controlSignalCode = &quot; + controlSignalCode);
 
+
 /* Gather Key and construct Question Code */
-	OutputParam data = (OutputParam)sessionFacts.getMessage();
+OutputParam data = (OutputParam)sessionFacts.getMessage();
 
-	key = data.getSuitCase();
-	targetCode = data.getTargetCode();
-	sourceCode = data.getAskSourceCode();
+key = data.getSuitCase();
+targetCode = data.getTargetCode();
+sourceCode = data.getAskSourceCode();
 
-	kcontext.setVariable(&quot;key&quot;, key);
-	kcontext.setVariable(&quot;targetCode&quot;, targetCode);
-	kcontext.setVariable(&quot;sourceCode&quot;, sourceCode);
+kcontext.setVariable(&quot;key&quot;, key);
+kcontext.setVariable(&quot;targetCode&quot;, targetCode);
+kcontext.setVariable(&quot;sourceCode&quot;, sourceCode);
 
-	System.out.println(&quot;key: &quot; + key);
-	System.out.println(&quot;targetCode: &quot; + targetCode);
-	System.out.println(&quot;sourceCode: &quot; + sourceCode);
+System.out.println(&quot;key: &quot; + key);
+System.out.println(&quot;targetCode: &quot; + targetCode);
+System.out.println(&quot;sourceCode: &quot; + sourceCode);
 
 /* Getting Target BaseEntity */
-	serviceToken = (GennyToken)sessionFacts.getServiceToken();
-	userToken = (GennyToken)sessionFacts.getUserToken();
+serviceToken = (GennyToken)sessionFacts.getServiceToken();
+userToken = (GennyToken)sessionFacts.getUserToken();
 
-    kcontext.setVariable(&quot;serviceToken&quot;, serviceToken);
-	kcontext.setVariable(&quot;userToken&quot;, userToken);
+kcontext.setVariable(&quot;serviceToken&quot;, serviceToken);
+kcontext.setVariable(&quot;userToken&quot;, userToken);
 
-	System.out.println(&quot;Script: serviceToken: &quot; + serviceToken.getCode());
-	System.out.println(&quot;Script: userToken: Code:: &quot; + userToken.getCode());
-	System.out.println(&quot;Script: userToken: &quot; + userToken.getToken());
-	System.out.println(&quot;Script: mentorAgree:: userToken UserCode: &quot; + userToken.getUserCode());
+System.out.println(&quot;Script: serviceToken: &quot; + serviceToken.getCode());
+System.out.println(&quot;Script: userToken: Code:: &quot; + userToken.getCode());
+System.out.println(&quot;Script: userToken: &quot; + userToken.getToken());
+System.out.println(&quot;Script: mentorAgree:: userToken UserCode: &quot; + userToken.getUserCode());
 
-	beUtils = new BaseEntityUtils(serviceToken, userToken);
+beUtils = new BaseEntityUtils(serviceToken, userToken);
 
-	targetBaseEntity = beUtils.getBaseEntityByCode(targetCode);
+/* Get application */
+targetUser = beUtils.getBaseEntityByCode(targetCode);
+
+if (targetUser.getCode() != null) {
+	targetBeApplication = beUtils.quantumStrip(targetUser, &quot;PRI_APP_LNK_CODE&quot;, &quot;targetBeApplication&quot;);
+	System.out.println(&quot;meetingRating:: targetBeApplication: &quot; + targetBeApplication);
+}
+
+/* Get targetBaseEntity */
+
+if (targetBeApplication.getCode() != null) {
+	targetBaseEntity = beUtils.quantumStrip(targetBeApplication, &quot;PRI_CURRENT_MEETING&quot;, &quot;targetBaseEntity&quot;);
 	kcontext.setVariable(&quot;targetBaseEntity&quot;, targetBaseEntity);
 	System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
+}
 
 /* Get user role */
 	role = &quot;&quot;;
