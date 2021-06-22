@@ -229,7 +229,7 @@ if (targetUser.getCode() != null) {
 
 /* Get targetBaseEntity */
 if (targetBeApplication.getCode() != null) {
-	targetBaseEntityCode = beUtils.quantumStrip(targetBeApplication, &quot;PRI_CURRENT_MEETING&quot;, &quot;targetBaseEntityCode&quot;);
+	targetBaseEntityCode = beUtils.quantumStrip(targetBeApplication, &quot;PRI_MEETING_TIME&quot;, &quot;targetBaseEntityCode&quot;);
 	targetBaseEntity = beUtils.quantumBe(targetBaseEntityCode, &quot;targetBaseEntity&quot;);
 	kcontext.setVariable(&quot;targetBaseEntity&quot;, targetBaseEntity);
 	System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);
