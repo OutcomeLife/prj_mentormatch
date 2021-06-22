@@ -364,8 +364,8 @@ System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseE
         <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
       </bpmn2:exclusiveGateway>
       <bpmn2:sequenceFlow id="SequenceFlow_5" drools:priority="1" sourceRef="ScriptTask_6" targetRef="ExclusiveGateway_1"/>
-      <bpmn2:sequenceFlow id="SequenceFlow_6" drools:priority="1" name="MENTEE" sourceRef="ExclusiveGateway_1" targetRef="Task_2">
-        <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_9" language="http://www.java.com/java">return(role==&quot;PRI_IS_MENTEE&quot;);</bpmn2:conditionExpression>
+      <bpmn2:sequenceFlow id="SequenceFlow_6" drools:priority="2" name="MENTEE" sourceRef="ExclusiveGateway_1" targetRef="Task_2">
+        <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_9" language="http://www.java.com/java">return(role == &quot;PRI_IS_MENTEE&quot;);</bpmn2:conditionExpression>
       </bpmn2:sequenceFlow>
       <bpmn2:task id="Task_1" drools:taskName="AskQuestionTask" drools:displayName="Ask Question Task" drools:icon="icons/icon-info.gif" name="QUE_MENTOR_UPDATE_ON_MEETING_GRP">
         <bpmn2:extensionElements>
@@ -461,8 +461,8 @@ System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseE
           <bpmn2:targetRef>results</bpmn2:targetRef>
         </bpmn2:dataOutputAssociation>
       </bpmn2:task>
-      <bpmn2:sequenceFlow id="SequenceFlow_10" drools:priority="1" name="MENTOR" sourceRef="ExclusiveGateway_1" targetRef="Task_1">
-        <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_6" language="http://www.java.com/java">return(role==&quot;PRI_IS_MENTOR&quot;);</bpmn2:conditionExpression>
+      <bpmn2:sequenceFlow id="SequenceFlow_10" drools:priority="2" name="MENTOR" sourceRef="ExclusiveGateway_1" targetRef="Task_1">
+        <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_6" language="http://www.java.com/java">return(role == &quot;PRI_IS_MENTOR&quot;);</bpmn2:conditionExpression>
       </bpmn2:sequenceFlow>
       <bpmn2:exclusiveGateway id="ExclusiveGateway_2" name="Exclusive Gateway 2" gatewayDirection="Converging">
         <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
