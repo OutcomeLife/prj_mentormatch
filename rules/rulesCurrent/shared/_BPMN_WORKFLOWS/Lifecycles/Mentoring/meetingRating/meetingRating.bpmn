@@ -240,13 +240,13 @@ kcontext.setVariable(&quot;targetBaseEntity&quot;, targetBaseEntity);
 System.out.println(&quot;MEETING RATING:: targetBaseEntity: &quot; + targetBaseEntity);*/
 
 /* Get user role */
-	role = &quot;&quot;;
+	role = beUtils.quantumStrip(targetUser, &quot;PRI_USER_ROLE&quot;, &quot;role&quot;);
 
-	Optional&lt;EntityAttribute> highestRole = targetBaseEntity.getHighestEA(&quot;PRI_IS_&quot;);
+	/*Optional&lt;EntityAttribute> highestRole = targetBaseEntity.getHighestEA(&quot;PRI_IS_&quot;);
 	System.out.println(&quot;MEETING RATING:: highestRole: &quot; + highestRole);
 	if (highestRole.isPresent()) {
 		role = highestRole.get().getAttributeCode().toString();
-    }
+    }*/
 
    kcontext.setVariable(&quot;role&quot;, role);
    System.out.println(&quot;MEETING RATING:: user role: &quot; + role);</bpmn2:script>
