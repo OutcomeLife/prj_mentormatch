@@ -34,19 +34,6 @@ rule "SBE_APPLICATION"
                               
                               /* Table Columns */
 								.addColumn("PRI_MENTOR_CODE", "Mentor")
-								.addColumn("PRI_MENTORING_MEETING_1", "Meeting1")
-								.addColumn("PRI_MENTORING_MEETING_2", "Meeting2")
-								.addColumn("PRI_MENTORING_MEETING_3", "Meeting3")
-								.addColumn("PRI_MENTORING_MEETING_4", "Meeting4")
-								.addColumn("PRI_MENTORING_MEETING_5", "Meeting5")
-								.addColumn("PRI_MENTORING_MEETING_6", "Meeting6")
-								.addColumn("PRI_MENTORING_MEETING_7", "Meeting7")
-								.addColumn("PRI_MENTORING_MEETING_8", "Meeting8")
-								.addColumn("PRI_MENTORING_MEETING_9", "Meeting9")
-								.addColumn("PRI_MENTORING_MEETING_10", "Meeting10")
-								.addColumn("PRI_MENTORING_MEETING_11", "Meeting11")
-								.addColumn("PRI_MENTORING_MEETING_12", "Meeting12")
-								.addColumn("PRI_NEXT_MEETING", "NextMeeting")
                               
                               .setPageStart(0).setPageSize(1);
 
