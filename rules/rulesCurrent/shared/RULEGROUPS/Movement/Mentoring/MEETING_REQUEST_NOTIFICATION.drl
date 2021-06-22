@@ -212,7 +212,7 @@ rule "MEETING_REQUEST_NOTIFICATION"
 					System.out.println("ERROR Null Mentor email");
 				}
 		}
-		TableUtils.searchTable(beUtils,"SBE_APPLICATIONS_MEETING", true, "PRI_CODE", newApplication.getCode());
+		TableUtils.searchTable(beUtils,"SBE_MENTORING_MEETINGS", true, "PRI_LNK_APP_CODE", newApplication.getCode());
 		retract(newApplication)
 		retract(bucketCode)
 		retract(controlSignalCode)
