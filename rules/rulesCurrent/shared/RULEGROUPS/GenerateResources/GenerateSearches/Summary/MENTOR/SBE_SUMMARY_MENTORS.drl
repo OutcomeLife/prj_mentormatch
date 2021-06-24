@@ -40,15 +40,23 @@ rule "SBE_SUMMARY_MENTORS"
 			/* Table Columns */
 			.addColumn("PRI_FIRSTNAME", "Firstname")
 			.addColumn("PRI_LASTNAME", "Lastname")
-			.addColumn("PRI_STATUS", "Status")
-			.addColumn("PRI_ETH_BACK", "Ethnicity")
-			.addColumn("PRI_AREA_EXPERTISE", "Expertise")
-			.addColumn("PRI_VIDEO_URL", "Videourl")
-			.addColumn("LNK_HOBBIES_INTEREST", "Interest")
 			.addColumn("PRI_NAME", "Name")
             .addColumn("PRI_EMAIL", "Email")
             .addColumn("PRI_MOBILE", "Mobile")
+            .addColumn("PRI_AGE", "Age")
+            .addColumn("LNK_GENDER_SELECT", "Gender")
+            
             .addColumn("PRI_LINKEDIN_PROFILE_URL", "LinkedIn")
+			.addColumn("LNK_SELECT_COUNTRY", "Country of origin")
+			.addColumn("LNK_MENTOR_LOC_PREF", "Mentor Location")
+			.addColumn("LNK_INDUSTRY", "Mentor Industry")
+			.addColumn("LNK_HOBBIES_INTEREST", "Interest")
+			.addColumn("PRI_AREA_EXPERTISE", "Expertise")
+			
+			.addColumn("PRI_VIDEO_URL", "Videourl")
+			.addColumn("PRI_USER_PROFILE_PICTURE", "Profile Picture")
+			.addColumn("PRI_STATUS", "Status")
+
 
 			/* Actions */
 			.addSearchAction("PRI_EVENT_QUE_TREE_ITEM_MENTORS", "View")
