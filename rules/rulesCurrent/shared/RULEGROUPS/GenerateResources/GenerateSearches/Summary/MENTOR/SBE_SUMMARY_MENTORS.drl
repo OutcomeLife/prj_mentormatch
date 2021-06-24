@@ -47,7 +47,7 @@ rule "SBE_SUMMARY_MENTORS"
             .addColumn("LNK_GENDER_SELECT", "Gender")
             
             .addColumn("PRI_LINKEDIN_PROFILE_URL", "LinkedIn")
-			.addColumn("LNK_SELECT_COUNTRY", "Country of origin")
+			.addColumn("PRI_SELECT_COUNTRY", "Country of origin")
 			.addColumn("LNK_MENTOR_LOC_PREF", "Mentor Location")
 			.addColumn("LNK_INDUSTRY", "Mentor Industry")
 			.addColumn("LNK_HOBBIES_INTEREST", "Interest")
