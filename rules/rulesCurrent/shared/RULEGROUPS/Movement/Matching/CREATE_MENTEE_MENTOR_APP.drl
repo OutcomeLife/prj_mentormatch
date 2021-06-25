@@ -44,24 +44,26 @@ rule "CREATE_MENTEE_MENTOR_APP"
  		System.out.println(drools.getRule().getName() + " :: Rule fired" );
 
 		BaseEntityUtils beUtils = new BaseEntityUtils(serviceToken, userToken);
-		
+
 		System.out.println(drools.getRule().getName() + " :: newApplication = " + newApplication.getCode());
-		
+
 
  		newApplication = beUtils.getBaseEntityByCode(newApplication.getCode());
- 		
+
  		String menteeCode = newApplication.getValue("PRI_MENTEE_CODE", null);
- 		String mentorCode = newApplication.getValue("PRI_MENTOR_CODE", null);
- 		
+ 		String mentorCode = beUtils.quantumStrip(newApplication, "PRI_MENTOR_CODE", "mentorCode");
+ 		String mentorCodeWithoutQS = newApplication.getValue("PRI_MENTOR_CODE", null);
+
  		System.out.println(drools.getRule().getName() + " :: menteeCode = " + menteeCode);
  		System.out.println(drools.getRule().getName() + " :: mentorCode = " + mentorCode);
- 		
+		System.out.println(drools.getRule().getName() + " :: mentorCodeWithoutQS = " + mentorCodeWithoutQS);
+
  		BaseEntity mentorBe = beUtils.getBaseEntityByCode(mentorCode);
  		BaseEntity menteeBe = beUtils.getBaseEntityByCode(menteeCode);
- 		
+
  		/* Changing status of mentor as invite send to mentor */
 		beUtils.saveAnswer(new Answer(userToken.getUserCode(), mentorBe.getCode(), "PRI_STATUS", "MATCHED"));
-		
+
 		if (mentorBe != null & menteeBe != null) {
 
 			String menteeName = menteeBe.getValue("PRI_NAME", null);
@@ -103,7 +105,7 @@ rule "CREATE_MENTEE_MENTOR_APP"
 				beUtils.saveAnswer(new Answer(userToken.getUserCode(), mentorBe.getCode(), "PRI_APP_LNK_CODE", newApplication.getCode()));
 				beUtils.saveAnswer(new Answer(userToken.getUserCode(), menteeBe.getCode(), "PRI_APP_LNK_CODE", newApplication.getCode()));
 			}
-			
+
             /* Send Invite Email to Mentor */
             String mentorEmail = mentorBe.getValue("PRI_EMAIL", null);
 
