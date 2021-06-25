@@ -128,6 +128,6 @@ rule "SEND_EMAIL_MENTOR_AGREES_WITH_TIMES"
 					System.out.println("ERROR Null Mentee email");
 				}
 		}
-		retract(newApplication)
+		retract(assocApplication)
 		retract(controlSignalCode)
 end
