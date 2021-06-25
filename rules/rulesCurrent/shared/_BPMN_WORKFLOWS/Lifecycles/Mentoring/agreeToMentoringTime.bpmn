@@ -72,7 +72,6 @@
     <bpmn2:property id="mentorResponseBe" itemSubjectRef="ItemDefinition_2016" name="mentorResponseBe"/>
     <bpmn2:property id="mentorResponse" itemSubjectRef="ItemDefinition_2733" name="mentorResponse"/>
     <bpmn2:property id="assocApplication" itemSubjectRef="ItemDefinition_2016" name="assocApplication"/>
-    <bpmn2:property id="beUtils" itemSubjectRef="ItemDefinition_2143" name="beUtils"/>
     <bpmn2:endEvent id="EndEvent_2" name="End cardsA">
       <bpmn2:extensionElements>
         <drools:metaData name="elementname">
@@ -318,6 +317,8 @@ System.out.println(&quot;###mentorResponse ###&quot; + mentorResponse);
         <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
         <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
         <bpmn2:script>System.out.println(&quot;### Inside agree to mentor times flow ####&quot;);
+
+BaseEntityUtils beUtils = new BaseEntityUtils(userToken);
 
 controlSignalCode = &quot;SCHEDULE_MENTORING_SESSIONS&quot;;
 kcontext.setVariable(&quot;controlSignalCode&quot;, controlSignalCode);
