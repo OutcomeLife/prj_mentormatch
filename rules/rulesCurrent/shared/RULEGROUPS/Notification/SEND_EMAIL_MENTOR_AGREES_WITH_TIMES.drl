@@ -67,7 +67,7 @@ rule "SEND_EMAIL_MENTOR_AGREES_WITH_TIMES"
 
 			/* SEND EMAIL */
                 String menteeEmail = menteeBe.getValue("PRI_EMAIL", null);
-				System.out.println("mentorEmail: " + menteeEmail);
+				System.out.println("menteeEmail: " + menteeEmail);
 
 				String mentorName = mentorBe.getValue("PRI_NAME", null);
 				System.out.println("mentorName: " + mentorName);
@@ -112,15 +112,15 @@ rule "SEND_EMAIL_MENTOR_AGREES_WITH_TIMES"
 						if (!GennySettings.projectUrl.contains("dev")) {
 
 								List<String> bccList = Arrays.asList("mentormatch@gada.io");
-								EmailHelper.sendGrid(beUtils, mentorEmail, null, bccList, subject, template_id, templateData, true);
+								EmailHelper.sendGrid(beUtils, menteeEmail, null, bccList, subject, template_id, templateData, true);
 
 								System.out.println("Email Sent ||| Subject: " + subject + "||| template_id: " + template_id);
 
 						} else {
 								List<String> bccList = Arrays.asList("mentormatch@gada.io");
-								EmailHelper.sendGrid(beUtils, mentorEmail, null, bccList, subject, template_id, templateData, true);
+								EmailHelper.sendGrid(beUtils, menteeEmail, null, bccList, subject, template_id, templateData, true);
 
-								System.out.println("Email Sent To ||| " + mentorEmail + " Subject: " + subject + "||| template_id: " + template_id);
+								System.out.println("Email Sent To ||| " + menteeEmail + " Subject: " + subject + "||| template_id: " + template_id);
 
 							System.out.println("WARNING: Email not sent because on Dev server");
 						}
