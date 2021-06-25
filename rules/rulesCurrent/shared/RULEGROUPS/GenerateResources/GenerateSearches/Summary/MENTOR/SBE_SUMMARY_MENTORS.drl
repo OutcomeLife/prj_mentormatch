@@ -44,13 +44,13 @@ rule "SBE_SUMMARY_MENTORS"
             .addColumn("PRI_EMAIL", "Email")
             .addColumn("PRI_MOBILE", "Mobile")
             .addColumn("PRI_AGE", "Age")
-            .addColumn("LNK_GENDER_SELECT", "Gender")
+            .addColumn("PRI_MENTOR_GENDER", "Gender")
             
             .addColumn("PRI_LINKEDIN_PROFILE_URL", "LinkedIn")
 			.addColumn("PRI_SELECT_COUNTRY", "Country of origin")
-			.addColumn("LNK_MENTOR_LOC_PREF", "Mentor Location")
-			.addColumn("LNK_INDUSTRY", "Mentor Industry")
-			.addColumn("LNK_HOBBIES_INTEREST", "Interest")
+			.addColumn("PRI_MENTOR_LOC_PREF", "Mentor Location")
+			.addColumn("PRI_ASSOC_INDUSTRY", "Mentor Industry")
+			.addColumn("PRI_HOBBIES_INTEREST", "Interest")
 			.addColumn("PRI_AREA_EXPERTISE", "Expertise")
 			
 			.addColumn("PRI_VIDEO_URL", "Videourl")
