@@ -51,7 +51,7 @@ rule "SBE_SUMMARY_MENTORS"
 			.addColumn("PRI_MENTOR_LOC_PREF", "Mentor Location")
 			.addColumn("PRI_ASSOC_INDUSTRY", "Mentor Industry")
 			.addColumn("PRI_HOBBIES_INTEREST", "Interest")
-			.addColumn("PRI_AREA_EXPERTISE", "Expertise")
+			.addColumn("PRI_OUTPUTS_OF_MENTORING_PROGRAM", "Output of program")
 			
 			.addColumn("PRI_VIDEO_URL", "Videourl")
 			.addColumn("PRI_USER_PROFILE_PICTURE", "Profile Picture")
