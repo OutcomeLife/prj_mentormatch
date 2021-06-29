@@ -50,18 +50,21 @@ rule "SEND_MENTOR_UPDATE_ON_REG"
  		System.out.println(drools.getRule().getName() + " : Rule fired" );
  		System.out.println("Current Time is "+LocalDateTime.now());
 
- 		associatedMentorBe = beUtils.getBaseEntityByCode(newApplication.getCode());
+ 		associatedMentorBe = beUtils.getBaseEntityByCode(associatedMentorBe.getCode());
 
-		System.out.println(drools.getRule().getName() +" :: associatedMentorBe = " + newApplication);
+		System.out.println(drools.getRule().getName() +" :: associatedMentorBe = " + associatedMentorBe);
 
 		BaseEntity project = beUtils.getBaseEntityByCode("PRJ_"+ serviceToken.getRealm().toUpperCase());
 
-		if (mentorBe != null) {
+		if (associatedMentorBe != null) {
 			System.out.println("#### Sending email to mentor after registration ####");
 
 			/* SEND EMAIL */
                 String mentorEmail = associatedMentorBe.getValue("PRI_EMAIL", null);
 				System.out.println("mentorEmail: " + mentorEmail);
+
+				String mentorName = associatedMentorBe.getValue("PRI_NAME", null);
+				System.out.println("mentorName: " + mentorName);
 
 				if (mentorEmail != null) {
 
