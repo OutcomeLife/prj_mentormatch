@@ -138,7 +138,7 @@ rule "IS_QA_MENTOR"
 			String token = KeycloakUtils.getImpersonatedToken(serviceToken.getKeycloakUrl(), serviceToken.getRealm(), project, email, serviceToken.getToken());
 			System.out.println("token: " + token);
 
-			String url = GennySettings.projectUrl+"/home/UVVFX0ZBS0VfUEFSRU5U/UVVFX0ZJTklTSF9NRU5URUU=";
+			String url = GennySettings.projectUrl+"/home/UVVFX0ZBS0VfUEFSRU5U/UVVFX0ZJTklTSF9NRU5UT1I=";
 			System.out.println("url: " + url);
 
 			url = url + "?token=" + token;
