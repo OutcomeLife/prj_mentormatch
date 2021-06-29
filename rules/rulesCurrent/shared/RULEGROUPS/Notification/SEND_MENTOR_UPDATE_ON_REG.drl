@@ -42,7 +42,7 @@ rule "SEND_MENTOR_UPDATE_ON_REG"
     when
    		userToken : GennyToken (code != "PER_SERVICE" )
 		serviceToken : GennyToken( code == "PER_SERVICE")
-		associatedMentorBe : BaseEntity( code matches "PER_\\S+" )
+		associatedMentorBe : BaseEntity( )
 		output : OutputParam( )
 		controlSignalCode : String(controlSignalCode.equals("SEND_MENTOR_UPDATE_ON_REGISTRATION"))
 		beUtils : BaseEntityUtils()

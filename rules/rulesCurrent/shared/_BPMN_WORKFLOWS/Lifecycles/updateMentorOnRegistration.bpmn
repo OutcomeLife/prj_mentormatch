@@ -203,18 +203,18 @@ System.out.println(&quot;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ newApplication: &quot; + 
         <bpmn2:script>System.out.println(&quot;%%%%%%%%%%%%%%%%%%% END updateMentorOnRegistration %%%%%%%%%%%%%%%%%%%&quot;);</bpmn2:script>
       </bpmn2:scriptTask>
       <bpmn2:sequenceFlow id="SequenceFlow_2" drools:priority="1" sourceRef="ScriptTask_1" targetRef="EndEvent_6"/>
-      <bpmn2:task id="Task_3" drools:taskName="RuleFlowGroup" drools:displayName="RunRuleFlowGroup" drools:icon="icons/icon-info.gif" name="Set PRI_STATUS as TRAINING">
+      <bpmn2:task id="Task_3" drools:taskName="RuleFlowGroup" drools:displayName="RunRuleFlowGroup" drools:icon="icons/icon-info.gif" name="SEND_MENTOR_UPDATE_ON_REG">
         <bpmn2:extensionElements>
           <drools:metaData name="elementname">
-            <drools:metaValue><![CDATA[Set PRI_STATUS as TRAINING]]></drools:metaValue>
+            <drools:metaValue><![CDATA[SEND_MENTOR_UPDATE_ON_REG]]></drools:metaValue>
           </drools:metaData>
           <drools:onEntry-script scriptFormat="http://www.java.com/java">
-            <drools:script>System.out.println(&quot;@@@@@@@@@@@@@@@@@ ENTERING => (Set PRI_STATUS as TRAINING) rule flow group&quot;);
+            <drools:script>System.out.println(&quot;@@@@@@@@@@@@@@@@@ ENTERING => (SEND_MENTOR_UPDATE_ON_REG) rule flow group&quot;);
 System.out.println(&quot;@@@@@@@@@@@@@@@@@ ENTERING => bucketCode = &quot; + bucketCode);
 System.out.println(&quot;@@@@@@@@@@@@@@@@@ ENTERING => controlSignalCode = &quot; + controlSignalCode);</drools:script>
           </drools:onEntry-script>
           <drools:onExit-script scriptFormat="http://www.java.com/java">
-            <drools:script>System.out.println(&quot;@@@@@@@@@@@@@@@@@ EXITING => (Set PRI_STATUS as TRAINING) rule flow group&quot;);
+            <drools:script>System.out.println(&quot;@@@@@@@@@@@@@@@@@ EXITING => (SEND_MENTOR_UPDATE_ON_REG) rule flow group&quot;);
 System.out.println(&quot;@@@@@@@@@@@@@@@@@ EXITING => bucketCode = &quot; + bucketCode);
 System.out.println(&quot;@@@@@@@@@@@@@@@@@ EXITING => controlSignalCode = &quot; + controlSignalCode);</drools:script>
           </drools:onExit-script>
@@ -328,7 +328,7 @@ System.out.println(&quot;@@@@@@@@@@@@@@@@@ EXITING => controlSignalCode = &quot;
       <bpmndi:BPMNShape id="BPMNShape_Task_3" bpmnElement="Task_3" isExpanded="true">
         <dc:Bounds height="50.0" width="110.0" x="600.0" y="286.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_10">
-          <dc:Bounds height="22.0" width="88.0" x="611.0" y="300.0"/>
+          <dc:Bounds height="22.0" width="107.0" x="601.0" y="300.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="SequenceFlow_8" sourceElement="BPMNShape_StartEvent_1" targetElement="BPMNShape_SubProcess_2">
